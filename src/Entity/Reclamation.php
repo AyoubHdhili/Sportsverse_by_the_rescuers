@@ -62,7 +62,7 @@ class Reclamation
      *
      * @ORM\Column(name="nom_client", type="string", length=255, nullable=false)
      */
-    private $nomClient;
+     private $nomClient; 
 
     /**
      * @var \User
