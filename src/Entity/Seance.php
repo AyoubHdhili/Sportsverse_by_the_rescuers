@@ -21,14 +21,22 @@ class Seance
     private ?string $etat = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $durée = null;
+    private ?string $duree = null;
 
     #[ORM\ManyToOne(inversedBy: 'seances')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $client_id = null;
+    private ?User $coach_id = null;
 
-    #[ORM\OneToOne(mappedBy: 'seance', cascade: ['persist', 'remove'])]
-    private ?Emplacement $emplacement = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $nom_client = null;
+
+    #[ORM\ManyToOne(inversedBy: 'seances')]
+    private ?Emplacement $Emplacement = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $message = null;
+
 
     public function getId(): ?int
     {
@@ -59,43 +67,62 @@ class Seance
         return $this;
     }
 
-    public function getDurée(): ?string
+    public function getDuree(): ?string
     {
-        return $this->durée;
+        return $this->duree;
     }
 
-    public function setDurée(string $durée): self
+    public function setDuree(string $duree): self
     {
-        $this->durée = $durée;
+        $this->duree = $duree;
 
         return $this;
     }
 
-    public function getClientId(): ?user
+    public function getCoachId(): ?user
     {
-        return $this->client_id;
+        return $this->coach_id;
     }
 
-    public function setClientId(?user $client_id): self
+    public function setCoachId(?user $client_id): self
     {
-        $this->client_id = $client_id;
+        $this->coach_id = $client_id;
+
+        return $this;
+    }
+
+    public function getNomClient(): ?string
+    {
+        return $this->nom_client;
+    }
+
+    public function setNomClient(string $nom_client): self
+    {
+        $this->nom_client = $nom_client;
 
         return $this;
     }
 
     public function getEmplacement(): ?Emplacement
     {
-        return $this->emplacement;
+        return $this->Emplacement;
     }
 
-    public function setEmplacement(Emplacement $emplacement): self
+    public function setEmplacement(?Emplacement $Emplacement): self
     {
-        // set the owning side of the relation if necessary
-        if ($emplacement->getSeance() !== $this) {
-            $emplacement->setSeance($this);
-        }
+        $this->Emplacement = $Emplacement;
 
-        $this->emplacement = $emplacement;
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): self
+    {
+        $this->message = $message;
 
         return $this;
     }

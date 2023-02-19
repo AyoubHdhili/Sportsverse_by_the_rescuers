@@ -81,7 +81,7 @@
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coaching</a>
 									<ul class="dropdown-menu">
 										<li class="nav-item">
-											<a class="nav-link" href="{{path('app_coach')}}">Resever</a>
+											<a class="nav-link" href="{{path('app_list_coach')}}">Resever</a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" href="single-blog.html">Suivi Seance</a>
@@ -137,6 +137,7 @@
 		</header>
 		<!-- End Header Area -->
 		<!-- start banner Area -->
+		{% block header %}
 		<section class="banner-area">
 			<div class="container">
 				<div class="row fullscreen align-items-center justify-content-start">
@@ -144,7 +145,6 @@
 						<div
 							class="active-banner-slider owl-carousel">
 							<!-- single-slide -->
-							{% block header %}
 							<div class="row single-slide align-items-center d-flex">
 								<div class="col-lg-5 col-md-6">
 									<div class="banner-content">

@@ -218,7 +218,7 @@ class User
     {
         if (!$this->seances->contains($seance)) {
             $this->seances->add($seance);
-            $seance->setClientId($this);
+            $seance->setCoachId($this);
         }
 
         return $this;
@@ -228,8 +228,8 @@ class User
     {
         if ($this->seances->removeElement($seance)) {
             // set the owning side to null (unless already changed)
-            if ($seance->getClientId() === $this) {
-                $seance->setClientId(null);
+            if ($seance->getCoachId() === $this) {
+                $seance->setCoachId(null);
             }
         }
 
@@ -246,5 +246,9 @@ class User
         $this->etat = $etat;
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->nom;
     }
 }

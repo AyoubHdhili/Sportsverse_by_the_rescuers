@@ -38,6 +38,14 @@ class UserRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findCoachs(){
+        return $this->createQueryBuilder('c')
+        ->where('c.role=:role')
+        ->andWhere('c.etat=:etat')
+        ->setParameters(['role'=>'coach','etat'=>1])
+        ->getQuery()
+        ->getResult();
+    }
 
 //    /**
 //     * @return User[] Returns an array of User objects

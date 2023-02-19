@@ -38,7 +38,36 @@ class EmplacementChoixRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function findGovernorat(){
+        $governorats=$this->createQueryBuilder('g')
+        ->getQuery()
+        ->getResult();
+        $choices=[];
+        foreach($governorats as $governorat){
+            $choices[$governorat->getGovernorat()]=$governorat->getGovernorat();
+        }
+        return $choices;
+    }
+    public function findDelegation(){
+        $delegations=$this->createQueryBuilder('d')
+        ->getQuery()
+        ->getResult();
+        $choices=[];
+        foreach($delegations as $delegation){
+            $choices[$delegation->getDelegation()]=$delegation->getDelegation();
+        }
+        return $choices;
+    }
+    public function findLocalite(){
+        $localites=$this->createQueryBuilder('l')
+        ->getQuery()
+        ->getResult();
+        $choices=[];
+        foreach($localites as $localite){
+            $choices[$localite->getLocalite()]=$localite->getLocalite();
+        }
+        return $choices;
+    }
 //    /**
 //     * @return EmplacementChoix[] Returns an array of EmplacementChoix objects
 //     */
