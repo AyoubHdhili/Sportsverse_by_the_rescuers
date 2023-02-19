@@ -1,0 +1,32 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Reponse index{% endblock %}
+
+{% block body %}
+    <h1>Reponse index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sujet</th>
+                <th>Description</th>
+             
+            </tr>
+        </thead>
+        <tbody>
+        {% for reponse in reponses %}
+            <tr>
+                <td>{{ reponse.idReclamation }}</td>
+                <td>{{ reponse.description }}</td>
+                
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}
