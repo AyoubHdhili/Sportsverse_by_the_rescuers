@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CvRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CvRepository::class)]
@@ -16,12 +17,16 @@ class Cv
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Certification is required")]
     private ?string $certification = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Description is required")]
+
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Tarif is required")]
     private ?float $tarif = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -29,21 +34,27 @@ class Cv
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $user_id = null;
-
-    #[ORM\OneToMany(mappedBy: 'cv', targetEntity: Activite::class, orphanRemoval: true)]
-    private Collection $activites;
+    private ?User $user_id = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Duree d'experience is required")]
+
     private ?int $duree_experience = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Niveau d'experience is required")]
+
     private ?string $level = null;
+
+    #[ORM\ManyToMany(targetEntity: Activite::class, inversedBy: 'cvs')]
+    private Collection $activites;
 
     public function __construct()
     {
         $this->activites = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -98,48 +109,24 @@ class Cv
         return $this;
     }
 
-    public function getUserId(): ?user
+    public function getUserId(): ?User
     {
         return $this->user_id;
     }
 
-    public function setUserId(user $user_id): self
+    public function setUserId(User $user_id): self
     {
         $this->user_id = $user_id;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Activite>
-     */
-    public function getActivites(): Collection
+
+
+    public function getduree_experience(): ?int
     {
-        return $this->activites;
+        return $this->duree_experience;
     }
-
-    public function addActivite(Activite $activite): self
-    {
-        if (!$this->activites->contains($activite)) {
-            $this->activites->add($activite);
-            $activite->setCv($this);
-        }
-
-        return $this;
-    }
-
-    public function removeActivite(Activite $activite): self
-    {
-        if ($this->activites->removeElement($activite)) {
-            // set the owning side to null (unless already changed)
-            if ($activite->getCv() === $this) {
-                $activite->setCv(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getDureeExperience(): ?int
     {
         return $this->duree_experience;
@@ -160,6 +147,34 @@ class Cv
     public function setLevel(string $level): self
     {
         $this->level = $level;
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return (string) $this->description;
+    }
+
+    /**
+     * @return Collection<int, Activite>
+     */
+    public function getActivites(): Collection
+    {
+        return $this->activites;
+    }
+
+    public function addActivite(Activite $activite): self
+    {
+        if (!$this->activites->contains($activite)) {
+            $this->activites->add($activite);
+        }
+
+        return $this;
+    }
+
+    public function removeActivite(Activite $activite): self
+    {
+        $this->activites->removeElement($activite);
 
         return $this;
     }

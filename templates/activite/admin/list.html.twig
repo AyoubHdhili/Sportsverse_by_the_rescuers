@@ -1,0 +1,67 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Users
+{% endblock %}
+
+{% block navigation %}
+	<li class="breadcrumb-item">
+		<a href="{{ path ('app_dashboard') }}">Home</a>
+	</li>
+	<li class="breadcrumb-item active">List Activites</li>
+{% endblock %}
+
+{% block body %}
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title" style="display: flex; position: absolute;">Activites list</h5>
+			<button class="justify-content-end" style="display: flex; position: relative; left: 88%; margin-top: 8px; border-radius: 10px;">
+				<a href="{{ path ('admin_add_activite')}}">
+					<i class="bx bxs-plus-square"></i>
+					Add activite</a>
+			</button>
+			<table class="table table-hover">
+				<thead>
+
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">nom</th>
+						<th scope="col">description</th>
+						<th scope="col">type</th>
+						<th scope="col" colspan="3">Actions</th>
+
+						{# <th scope="col">user_id</th> #}
+					</tr>
+				</thead>
+				<tbody>
+					{% for act in activites %}
+						<tr>
+							<th>{{ act.id }}</th>
+							<td>{{ act.nom }}</td>
+							<td>{{ act.description }}</td>
+							<td>{{ act.type }}</td>
+							<td>
+								<button class="btn">
+									<a href="{{ path ('update_activite', {'id': act.id})}}">
+										<i class="bx bxs-wrench"></i>Update</a>
+								</button>
+							</td>
+							<td>
+								<button class="btn">
+									<a href="{{ path ('delete_activite', {'id': act.id})}}">
+										<i class="bx bxs-trash"></i>Delete</a>
+								</button>
+							</td>
+							<td>
+								<button class="btn">
+									<a href="{{ path ('admin_show_activite', {'id': act.id})}}">
+										<i class="bx bxs-show"></i>Show</a>
+								</button>
+							</td>
+
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
