@@ -25,6 +25,7 @@
 		<!--
 						CSS
 						============================================= -->
+						<link rel="stylesheet" href="https://kit.fontawesome.com/bd60395c82.css" crossorigin="anonymous">
 		<link rel="stylesheet" href="{{asset('css/linearicons.css')}}">
 		<link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 		<link rel="stylesheet" href="{{asset('css/themify-icons.css')}}">
@@ -81,7 +82,7 @@
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coaching</a>
 									<ul class="dropdown-menu">
 										<li class="nav-item">
-											<a class="nav-link" href="{{path('app_coach')}}">Resever</a>
+											<a class="nav-link" ></a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" href="single-blog.html">Suivi Seance</a>
@@ -137,7 +138,9 @@
 		</header>
 		<!-- End Header Area -->
 		<!-- start banner Area -->
+		
 		<section class="banner-area">
+			{% block container %}
 			<div class="container">
 				<div class="row fullscreen align-items-center justify-content-start">
 					<div class="col-lg-12">
@@ -164,7 +167,9 @@
 					</div>
 				</div>
 			</div>
+			{% endblock %}
 		</section>
+		
 		<!-- End banner Area -->
 		{% block body %}
 			<!-- start features Area -->
@@ -219,6 +224,7 @@
 
 			<!-- Start category Area -->
 			<section class="category-area">
+				
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-lg-8 col-md-12">
@@ -282,12 +288,12 @@
 						</div>
 					</div>
 				</div>
+				
 			</section>
 			<!-- End category Area -->
 
 			<!-- start product Area -->
-			<section
-				class="owl-carousel active-product-area section_gap">
+			<section class="owl-carousel active-product-area section_gap">
 				<!-- single product slide -->
 				{% block produit %}
 					<div class="single-product-slider">

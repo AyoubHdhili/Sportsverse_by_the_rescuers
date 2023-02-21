@@ -6,7 +6,7 @@ use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
 {
@@ -16,12 +16,18 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:3,max:20,minMessage:"Le nom du produit ne contient pas au min 3 caractères.")]
     private ?string $nom_produit = null;
 
     #[ORM\Column]
+   
+    #[Assert\Positive(message: "Prix doit etre positif")]
+
     private ?float $prix_ttc = null;
 
     #[ORM\Column]
+    
+    #[Assert\Positive(message: "Quantité doit etre positif")]
     private ?int $quantite = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -32,7 +38,7 @@ class Produit
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?categorie $categorie = null;
+    private ?Categorie $categorie = null;
 
     public function __construct()
     {
@@ -127,7 +133,7 @@ class Produit
         return $this->categorie;
     }
 
-    public function setCategorie(?categorie $categorie): self
+    public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
 

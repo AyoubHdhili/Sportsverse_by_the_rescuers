@@ -1,0 +1,62 @@
+{% extends 'back.html.twig' %}
+
+
+
+{% block body %}
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Ajouter un produit</h5>
+
+     
+    
+        <div class="col-md-12">
+          <td> {{ form_label(form.nom_produit,"Nom du produit") }} </td>
+          <td> {{ form_widget(form.nom_produit) }} </td>
+          <td> {{ form_errors(form.nom_produit) }} </td>
+        </div>
+        <div class="col-md-12">
+          
+          <td> {{ form_label(form.prix_ttc,"Prix") }} </td>
+          <td> {{ form_widget(form.prix_ttc) }} </td>
+          <td> {{ form_errors(form.prix_ttc) }} </td>
+        </div>
+        <div class="col-md-12">
+          
+          <td> {{ form_label(form.quantite,"Quantite") }} </td>
+          <td> {{ form_widget(form.quantite) }} </td>
+          <td> {{ form_errors(form.quantite) }} </td>
+        </div>
+        <div class="col-md-12">
+          
+          <td> {{ form_label(form.image,"Image") }} </td>
+          <td> {{ form_widget(form.image) }} </td>
+          <td> {{ form_errors(form.image) }} </td>
+        </div>
+        <div class="col-md-12">
+          
+          <td> {{ form_label(form.categorie,"Categorie") }} </td>
+          <td> {{ form_widget(form.categorie) }} </td>
+          <td> {{ form_errors(form.categorie) }} </td>
+        </div>
+        
+        
+       
+        {{form_end( form) }}
+        <div class="text-center">
+          <button type="form.save" class="btn btn-primary">Enregistrer</button>
+         
+        </div>
+      
+
+    </div>
+  </div>
+
+
+   
+
+  
+
+    
+{% endblock %}
+

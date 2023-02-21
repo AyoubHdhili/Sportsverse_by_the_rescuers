@@ -1,0 +1,64 @@
+{% extends 'back.html.twig' %} {% block title %}Produits {% endblock %} 
+{% block body %}
+
+
+{% block navigation %}
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="#">Home</a>
+    </li>
+    <li class="breadcrumb-item active">Produits</li>
+  </ol>
+</nav>
+{% endblock %} {% block cardd %}
+<h5 class="card-title">
+    liste des produits
+  
+</h5>
+
+<table class="table table-bordered border primary">
+  <thead>
+    
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nom_produit</th>
+      <th scope="col">Quantite</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Categorie</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for produit in produits %}
+    <tr>
+      <th scope="row">
+        <a href="#id">#{{ produit.id }}</a>
+      </th>
+      <td>{{ produit.nomProduit }}</td>
+      <td>
+        <a href="#" class="text-primary">{{ produit.quantite }}</a>
+      </td>
+
+      <td>{{ produit.prixTtc }}</td>
+      <td>{{ produit.categorie }}</td>
+      <td class="text-center">
+        <a href="{{ path('app_produit_show', { id: produit.id }) }}" class="btn btn-primary">Afficher</a>
+        <a href="{{ path('app_produit_show', { id: produit.id }) }}" class="btn btn-secondary">Modifier</a>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="6">no records found</td>
+    </tr>
+    {% endfor %}
+    
+    
+    
+  </tbody>
+</table>
+{% endblock %}
+
+
+<a href="{{ path('app_produit_new') }}"class="btn btn-primary">Creer </a>
+{% endblock %}

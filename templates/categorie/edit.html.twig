@@ -1,0 +1,22 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Modifier  Categorie{% endblock %}
+
+
+
+{% block body %}
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Modifier  une Categorie</h5>
+    
+    
+        {{ form_widget(form) }}
+    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        {{ include('categorie/_delete_form.html.twig') }}
+
+    <a href="{{ path('app_categorie_index') }}">Retourner a la liste</a>
+</div>
+</div>
+    
+{% endblock %}

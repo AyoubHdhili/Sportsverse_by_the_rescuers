@@ -1,0 +1,20 @@
+{% extends 'back.html.twig'%}
+
+{% block body %}
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Ajouter une categorie</h5>
+
+     
+    
+        <div class="col-md-12">
+          <td> {{ form_label(form.nom,"Nom de la categorie") }} </td>
+          <td> {{ form_widget(form.nom) }} </td>
+          <td> {{ form_errors(form.nom) }} </td>
+        </div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+    <a href="{{ path('app_categorie_index') }}"class="btn btn-secondary">back to list</a>
+{% endblock %}

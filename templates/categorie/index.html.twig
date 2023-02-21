@@ -1,0 +1,58 @@
+{% extends 'back.html.twig'%}
+
+{% block body %}
+
+
+<h1> liste des Categories</h1>
+				<nav>
+					<ol class="breadcrumb">
+						{% block navigation %}
+							<li class="breadcrumb-item">
+								<a href="#">Home</a>
+							</li>
+							<li class="breadcrumb-item active"> Categories</li>
+						{% endblock %}
+					</ol>
+				</nav>
+   
+
+    
+
+                <table class="table table-bordered border primary">
+                    <thead>
+                      
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nom_categorie</th>
+                        
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for categorie in categories %}
+                      <tr>
+                        <th scope="row">
+                          <a href="#id">#{{ categorie.id }}</a>
+                        </th>
+                        <td>{{categorie.nom }}</td>
+                        
+                  
+                        
+                        <td class="text-center">
+                          <a href="{{ path('app_categorie_show', { id:categorie.id }) }}" class="btn btn-primary">Afficher</a>
+                          <a href="{{ path('app_categorie_show', { id: categorie.id }) }}" class="btn btn-secondary">Modifier</a>
+                        </td>
+                      </tr>
+                      {% else %}
+                      <tr>
+                        <td colspan="6">no records found</td>
+                      </tr>
+                      {% endfor %}
+                      
+                      
+                      
+                    </tbody>
+                  </table>
+
+    <a href="{{ path('app_categorie_new') }}" class="btn btn-primary">Create new</a>
+{% endblock %}
