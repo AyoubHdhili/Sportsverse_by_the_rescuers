@@ -15,6 +15,15 @@
 	</section>
 	<!-- End Banner Area -->
 {% endblock %}
+{% block nav %}
+								<li class="nav-item active">
+									<a class="nav-link" href="{{path('app_coach_seance')}}">Accueil</a>
+								</li>
+								<li class="nav-item submenu dropdown">
+									<a href="{{path('coach_seance')}}" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vos Séances</a>
+								</li>
+							</ul>
+{% endblock %}
 {% block body %}
     <section class="cart_area">
         <div class="container">
@@ -28,6 +37,7 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">Durée</th>
                                 <th scope="col">Etat</th>
+                                <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -57,11 +67,19 @@
                                 <td>
                                 {% if s.etat is null %}
                                     <h5>En attente</h5>
+                                                                    <td>
+                                    <a class="btn btn-success" href="{{path('accepter_seance',{'id':s.id})}}">Accepter</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" href="">Refuser</a>
+                                </td>
                                     {% else %}
                                     <h5>{{s.etat}}</h5>
+                                    <td></td>
+                                    <td></td>
                                 {% endif %}
                                 </td>
-                                <td><a href="{{path('update_seance',{'id': s.id})}}">Demande de modification</a></td>
+                                
                             </tr>
                             {% endfor %}
                         </tbody>

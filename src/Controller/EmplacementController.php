@@ -31,7 +31,7 @@ class EmplacementController extends AbstractController
             $em=$doctrine->getManager();
             $em->persist($emplacement);
             $em->flush();
-            return $this->redirectToRoute('add_seance');
+            return $this->redirectToRoute('app_list_coach');
         }
         return $this->render('emplacement/add.html.twig',['formE'=>$form->createView(),]);
     }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\EmplacementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +26,7 @@ class Emplacement
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"S'il vous plait Mettez une adresse")]
     private ?string $adresse = null;
 
     #[ORM\OneToMany(mappedBy: 'Emplacement', targetEntity: Seance::class)]
@@ -132,9 +134,9 @@ class Emplacement
 
         return $this;
     }
-    public function getLoc(): string
+    public function __toString(): string
     {
-        return $this->governorat.(' ').$this->delegation;
+        return $this->governorat.(' ').$this->delegation.(' ').$this->adresse;
     }
 
 }

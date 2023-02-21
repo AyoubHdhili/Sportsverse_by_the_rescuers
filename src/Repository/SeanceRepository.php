@@ -38,7 +38,20 @@ class SeanceRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function findSeanceByAdresse($ad){
+        return $this->createQueryBuilder('s')
+        ->where('s.adresse_client = :ad')
+        ->setParameter('ad',$ad)
+        ->getQuery()
+        ->getResult();
+    }
+    public function findSeanceCoach($id){
+        return $this->createQueryBuilder('s')
+        ->where('s.coach_id = :id')
+        ->setParameter('id',$id)
+        ->getQuery()
+        ->getResult();
+    }
 //    /**
 //     * @return Seance[] Returns an array of Seance objects
 //     */

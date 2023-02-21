@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\SeanceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Mime\Message;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SeanceRepository::class)]
 class Seance
@@ -29,12 +31,13 @@ class Seance
 
 
     #[ORM\Column(length: 255)]
-    private ?string $nom_client = null;
+    private ?string $adresse_client = null;
 
     #[ORM\ManyToOne(inversedBy: 'seances')]
     private ?Emplacement $Emplacement = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,nullable:true)]
+    #[Assert\NotBlank(message:"S'il vous plait Mettez un message au coach")]
     private ?string $message = null;
 
 
@@ -79,26 +82,26 @@ class Seance
         return $this;
     }
 
-    public function getCoachId(): ?user
+    public function getCoach_Id(): ?user
     {
         return $this->coach_id;
     }
 
-    public function setCoachId(?user $client_id): self
+    public function setCoach_Id(?user $client_id): self
     {
         $this->coach_id = $client_id;
 
         return $this;
     }
 
-    public function getNomClient(): ?string
+    public function getAdresse_Client(): ?string
     {
-        return $this->nom_client;
+        return $this->adresse_client;
     }
 
-    public function setNomClient(string $nom_client): self
+    public function setAdresse_Client(string $adresse_client): self
     {
-        $this->nom_client = $nom_client;
+        $this->adresse_client = $adresse_client;
 
         return $this;
     }

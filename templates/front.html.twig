@@ -40,7 +40,7 @@
 
 	<body>
 
-
+{% block top %}
 		<!-- Start Header Area -->
 		<header class="header_area sticky-header">
 			<div class="main_menu">
@@ -57,6 +57,7 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
+							{% block nav %}
 								<li class="nav-item active">
 									<a class="nav-link" href="index.html">Accueil</a>
 								</li>
@@ -81,13 +82,10 @@
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coaching</a>
 									<ul class="dropdown-menu">
 										<li class="nav-item">
-											<a class="nav-link" href="{{path('app_list_coach')}}">Resever</a>
+											<a class="nav-link" href="{{path('app_list_coach')}}">Resever Séance</a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="single-blog.html">Suivi Seance</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="blog.html">Approuver Seance</a>
+											<a class="nav-link" href="{{path('app_seance')}}">Suivi Séance</a>
 										</li>
 									</ul>
 								</li>
@@ -95,13 +93,10 @@
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compte</a>
 									<ul class="dropdown-menu">
 										<li class="nav-item">
-											<a class="nav-link" href="login.html">Se Connecter</a>
+											<a class="nav-link" href="{{path('app_login')}}">Se Connecter</a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="tracking.html">inscrire</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="elements.html">Elements</a>
+											<a class="nav-link" href="{{path('app_registration')}}">Inscrire</a>
 										</li>
 									</ul>
 								</li>
@@ -114,6 +109,7 @@
 									</li>
 								</ul>
 							</ul>
+							{% endblock %}
 							<ul class="nav navbar-nav navbar-right">
 								<li class="nav-item">
 									<button class="search">
@@ -136,6 +132,7 @@
 			</div>
 		</header>
 		<!-- End Header Area -->
+{% endblock %}
 		<!-- start banner Area -->
 		{% block header %}
 		<section class="banner-area">
@@ -959,7 +956,7 @@
 		<!-- Start related-product Area -->
 
 		<!-- End related-product Area -->
-
+{% block footer %}
 		<!-- start footer Area -->
 			<footer class="footer-area section_gap"> <div class="container">
 				<div class="row">
@@ -1046,3 +1043,4 @@
 	<a href="https://colorlib.com" target="_blank"></a>
 	<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 </p></div></div></footer><!-- End footer Area --><script src="{{asset('js/vendor/jquery-2.2.4.min.js')}}"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script><script src="{{asset('js/vendor/bootstrap.min.js')}}"></script><script src="{{asset('js/jquery.ajaxchimp.min.js')}}"></script><script src="{{asset('js/jquery.nice-select.min.js')}}"></script><script src="{{asset('js/jquery.sticky.js')}}"></script><script src="{{asset('js/nouislider.min.js')}}"></script><script src="{{asset('js/countdown.js')}}"></script><script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script><script src="{{asset('js/owl.carousel.min.js')}}"></script><!--gmaps Js--><script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script><script src="{{asset('js/gmaps.min.js')}}"></script><script src="{{asset('js/main.js')}}"></script></body></html>
+{% endblock %}

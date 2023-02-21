@@ -17,8 +17,7 @@ class SeanceType extends AbstractType
         $builder
             ->add('date',DateTimeType::class,['widget'=>'single_text','placeholder'=>'Choisir la date de la séance'])
             ->add('duree',ChoiceType::class,['choices'=>['1 heure'=>'1 heure','2 heure'=>'2 heure'], 'placeholder' => 'Duree de la séance'])
-            ->add('coach_id')
-            ->add('Emplacement',ChoiceType::class,)
+            ->add('Emplacement')
             ->add('message',TextareaType::class,['attr'=>['placeholder'=>'Votre message']])
         ;
     }
