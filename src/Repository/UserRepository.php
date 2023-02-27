@@ -57,9 +57,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
     public function findCoachs(){
         return $this->createQueryBuilder('c')
-        ->where('c.role=:role')
+        ->where('c.type=:type')
         ->andWhere('c.etat=:etat')
-        ->setParameters(['role'=>'coach','etat'=>1])
+        ->setParameters(['type'=>'coach','etat'=>1])
         ->getQuery()
         ->getResult();
     }

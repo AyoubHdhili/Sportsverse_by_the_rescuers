@@ -42,8 +42,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable:true)]
     private ?bool $etat = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $role = null;
+    #[ORM\Column(length: 255,nullable:true)]
+    private ?string $type = null;
 
     public function getId(): ?int
     {
@@ -198,14 +198,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getNom();
     }
 
-    public function getRole(): ?string
+    public function getType(): ?string
     {
-        return $this->role;
+        return $this->type;
     }
 
-    public function setRole(string $role): self
+    public function setRole(string $type): self
     {
-        $this->role = $role;
+        $this->type = $type;
 
         return $this;
     }
