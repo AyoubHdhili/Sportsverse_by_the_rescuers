@@ -48,11 +48,11 @@
 
 
 	<!-- =======================================================
-										* Template Name: NiceAdmin - v2.5.0
-										* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-										* Author: BootstrapMade.com
-										* License: https://bootstrapmade.com/license/
-										======================================================== -->
+														* Template Name: NiceAdmin - v2.5.0
+														* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+														* Author: BootstrapMade.com
+														* License: https://bootstrapmade.com/license/
+														======================================================== -->
 	</head>
 
 	<body>
@@ -288,7 +288,7 @@
 							</li>
 
 							<li>
-								<a class="dropdown-item d-flex align-items-center" href="#">
+								<a class="dropdown-item d-flex align-items-center" href="{{path('app_logout')}}">
 									<i class="bi bi-box-arrow-right"></i>
 									<span>Sign Out</span>
 								</a>
@@ -1301,7 +1301,7 @@ name: 'Video Ads'
 
 		<!-- Template Main JS File -->
 		<script src="{{ asset('/js/main_admin.js') }}"></script>
-
+		{% block scriptjs %}{% endblock %}
 	</body>
 
 </html>

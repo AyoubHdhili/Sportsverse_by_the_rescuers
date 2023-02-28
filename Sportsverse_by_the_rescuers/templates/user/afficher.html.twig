@@ -17,18 +17,23 @@
 				<td>{{ user.email }}</td>
 			</tr>
 			<tr>
+
+
 				<th>Role</th>
-				<td>{{ user.role ? user.role|join(', ') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Password</th>
-				<td>{{ user.password }}</td>
-			</tr>
-			<tr>
-				<th>IsVerified</th>
-				<td>{{ user.etat ? 'Yes' : 'No' }}</td>
+				{% for role in user.getRoles() %}
+					<td>{{ role }}</td>
+				{% endfor %}
 			</tr>
 
+			<tr>
+				<th>Is Banned</th>
+				<td>{{ user.isBanned? 'banned' : 'No Banned'}}</td>
+			</tr>
+
+			<tr>
+				<th>Is verified</th>
+				<td>{{ user.isVerified ? 'verifie' : 'No verifie'}}</td>
+			</tr>
 			<tr>
 				<th>adresse</th>
 				<td>{{ user.adresse}}</td>
@@ -38,15 +43,15 @@
 				<td>{{ user.getNumTel() }}</td>
 			</tr>
 			{# <tr>
-						                <th>Naissance</th>
-						                <td>{{ user.naissance ? user.naissance|date('Y-m-d') : '' }}</td>
-						            </tr> #}
+																								                <th>Naissance</th>
+																								                <td>{{ user.naissance ? user.naissance|date('Y-m-d') : '' }}</td>
+																								            </tr> #}
 		</tbody>
 	</table>
 
 	{# <a href="{{ path('app_user_index') }}">back to list</a>
-		
-		    <a href="{{ path('app_user_', {'id': user.id}) }}">edit</a>
-		
-		    {{ include('user/_delete_form.html.twig') }} #}
+								
+								    <a href="{{ path('app_user_', {'id': user.id}) }}">edit</a>
+								
+								    {{ include('user/_delete_form.html.twig') }} #}
 {% endblock %}

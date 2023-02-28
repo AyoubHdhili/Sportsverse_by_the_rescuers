@@ -18,30 +18,31 @@
 	<!-- End Banner Area -->
 {% endblock %}
 {% block body %}
-	<!--================Login Box Area =================-->
+
 	<section class="login_box_area section_gap">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6" style="margin: 0 auto; width: 50%;">
 					<div class="login_form_inner">
 						<h3>inscription</h3>
-						{{form_start(form, {'attr': {'novalidate': 'novalidate'}})}}
+						{{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+
 						<div class="col-12">
 							<div>
-								{{form_label(form.nom, 'nom')}}
-								{{form_widget(form.nom,{
+								{{form_label(registrationForm.nom, 'nom')}}
+								{{form_widget(registrationForm.nom,{
 								'attr' :{
 									'class' : 'form-control',
 									'placeholder':'nom'
 								},
 							})}}
-								{{form_errors(form.nom)}}
+								{{form_errors(registrationForm.nom)}}
 							</div>
 						</div>
 						<div class="col-12">
 							<div>
-								{{form_label(form.prenom, 'prenom')}}
-								{{form_widget(form.prenom,{
+								{{form_label(registrationForm.prenom, 'prenom')}}
+								{{form_widget(registrationForm.prenom,{
 								'attr' :{
 									'class' : 'form-control',
 									'placeholder':'prenom'
@@ -49,91 +50,93 @@
 									
 							
 							})}}
-								{{form_errors(form.prenom,{'attr' :{'class' : 'text-danger'}})}}
+								{{form_errors(registrationForm.prenom,{'attr' :{'class' : 'text-danger'}})}}
 							</div>
 						</div>
+
 						<div class="col-12">
 							<div>
-								{{form_label(form.email, 'email')}}
-								{{form_widget(form.email,{
+								{{form_label(registrationForm.email, 'email')}}
+								{{form_widget(registrationForm.email,{
 								'attr' :{
 									'class' : 'form-control',
 									'placeholder':'email'
 								},
 							})}}
-								{{form_errors(form.email)}}
+								{{form_errors(registrationForm.email)}}
 							</div>
 						</div>
-
 						<div class="col-12">
 							<div>
-								{{form_label(form.num_tel, 'telephone')}}
-								{{form_widget(form.num_tel,{
+								{{form_label(registrationForm.num_tel, 'telephone')}}
+								{{form_widget(registrationForm.num_tel,{
 								'attr' :{
 									'class' : 'form-control',
 									'placeholder':'telephone'
 								},
 							})}}
-								{{form_errors(form.num_tel)}}
+								{{form_errors(registrationForm.num_tel)}}
 							</div>
 						</div>
 						<div class="col-12">
 							<div>
-								{{form_label(form.adresse, 'adresse')}}
-								{{form_widget(form.adresse,{
+								{{form_label(registrationForm.adresse, 'adresse')}}
+								{{form_widget(registrationForm.adresse,{
 								'attr' :{
 									'class' : 'form-control',
 									'placeholder':'adresse'
 								},
 							})}}
-								{{form_errors(form.adresse)}}
+								{{form_errors(registrationForm.adresse)}}
 							</div>
 						</div>
 						<div class="col-12">
-							{{form_label(form.password, 'password')}}
-							{{form_widget(form.password,{
+							{{form_label(registrationForm.password, 'password')}}
+
+							{{form_widget(registrationForm.password,{
 								'attr' :{
 									'class' : 'form-control',
 									'placeholder':'password'
 								},
 							})}}
-							{{form_errors(form.password)}}
+							{{form_errors(registrationForm.password)}}
 
 						</div>
 						<div class="col-12">
-							{{form_label(form.confirmPassword, 'confirmPassword')}}
-							{{form_widget(form.confirmPassword,{
+							{{form_label(registrationForm.confirmPassword, 'confirmPassword')}}
+							{{form_widget(registrationForm.confirmPassword,{
 								'attr' :{
 									'class' : 'form-control',
 									'placeholder':'confirmpassword'
 								},
 							})}}
-							{{form_errors(form.confirmPassword)}}
+							{{form_errors(registrationForm.confirmPassword)}}
 
 						</div>
 						<div class="col-12">
-							{{form_label(form.role, 'role')}}
-							{{form_widget(form.role,{
+							{{form_label(registrationForm.rolle, 'rolle')}}
+							{{form_widget(registrationForm.rolle,{
 								'attr' :{
 									'class' : 'form-control'
 								},
 							})}}
-							{{form_errors(form.role)}}
+							{{form_errors(registrationForm.rolle)}}
 
 						</div>
-
+						<div class="col-12">
+							{{ form_row(registrationForm.agreeTerms) }}
+						</div>
 						<div class="text-center">
 							<br>
-							{{ form_widget(form) }}
-							<button type="submit" class="btn btn-primary">
-								{{ button_label|default('inscrire') }}
-							</button>
+							<button type="submit" class="btn btn-primary">inscrire</button>
+
 						</div>
-						{{form_end(form)}}
+						{{ form_end(registrationForm) }}
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!--================End Login Box Area =================-->
+
+
 {% endblock %}
