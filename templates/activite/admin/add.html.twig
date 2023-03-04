@@ -58,6 +58,9 @@
 
 						{{form_widget(form.cvs,{
 						'attr' :{'class' : 'form-control'},})}}
+						{% if form.cvs is null %}
+							{{ form_errors(form) }}
+						{% endif %}
 						{{form_errors(form.cvs,{
 						'attr' :{'class' : 'text-danger'},})}}
 					</div>

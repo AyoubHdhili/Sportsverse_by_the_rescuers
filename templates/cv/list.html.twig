@@ -1,13 +1,6 @@
-{% extends 'back.html.twig' %}
+{% extends 'front.html.twig' %}
 
 {% block title %}List cv
-{% endblock %}
-
-{% block navigation %}
-	<li class="breadcrumb-item">
-		<a href="{{ path ('app_dashboard') }}">Home</a>
-	</li>
-	<li class="breadcrumb-item active">List Cv</li>
 {% endblock %}
 
 {% block body %}
@@ -15,15 +8,10 @@
 	{# ************** #}
 	<div class="card">
 		<div class="card-body">
-			<h5 class="card-title" style="display: flex; position: absolute;">CV list</h5>
-			<button class="justify-content-end" style="display: flex; position: relative; left: 92%; margin-top: 9px; border-radius: 10px;">
-				<a href="{{ path ('admin_add_cv')}}">
-					<i class="bx bxs-plus-square"></i>Add Cv</a>
-			</button>
+			<h5 class="card-title">CV list</h5>
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th scope="col">#</th>
 						<th scope="col">Prenom</th>
 
 						<th scope="col">image</th>
@@ -33,7 +21,6 @@
 						<th scope="col">tarif</th>
 						{# <th scope="col">duree experience</th> #}
 						<th scope="col">level</th>
-						<th scope="col" colspan="3">Actions</th>
 
 						{# <th scope="col">user_id</th> #}
 					</tr>
@@ -41,7 +28,6 @@
 				<tbody>
 					{% for cv in cvs %}
 						<tr>
-							<th>{{ cv.id }}</th>
 							<th>{{ cv.UserId }}</th>
 
 							<td>{{ cv.image }}</td>
@@ -55,21 +41,8 @@
 							<td>{{ cv.description }}</td>
 							<td>{{ cv.certification }}</td>
 							<td>{{ cv.tarif }}</td>
-							{# <td>{{ cv.duree_experience }}</td> #}
+							<td>{{ cv.duree_experience }}</td>
 							<td>{{ cv.level }}</td>
-							{# <td>{{ cv.user_id }}</td> #}
-							<td>
-								<button class="btn">
-									<a href="{{ path ('update_cv', {'id': cv.id})}}">
-										<i class="bx bxs-wrench"></i>Update</a>
-								</button>
-							</td>
-							<td>
-								<button class="btn">
-									<a href="{{ path ('delete_cv', {'id': cv.id})}}">
-										<i class="bx bxs-trash"></i>Delete</a>
-								</button>
-							</td>
 							<td>
 								<button class="btn">
 									<a href="{{ path ('show_cv', {'id': cv.id})}}">
@@ -83,5 +56,4 @@
 			</table>
 		</div>
 	</div>
-
 {% endblock %}

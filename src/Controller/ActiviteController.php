@@ -62,7 +62,7 @@ class ActiviteController extends AbstractController
         $repository = $doctrine->getRepository(Activite::class);
         $activite = $repository->find($id);
 
-        return $this->render('activite/detail.html.twig', [
+        return $this->render('activite/admin/detail.html.twig', [
             'controller_name' => 'ActiviteController',
             'activite' => $activite,
         ]);

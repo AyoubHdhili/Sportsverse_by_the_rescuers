@@ -6,14 +6,11 @@
 {% block banner_content %}
 	<div class="card">
 		<div class="card-body">
-			<h5 class="card-title">CV list</h5>
+			<h5 class="card-title">Activite</h5>
 
 			<!-- Table with hoverable rows -->
 			<table class="table table-hover">
-				<tr>
-					<th scope="col">#</th>
-					<th>{{ activite.id }}</th>
-				</tr>
+
 				<tr>
 
 					<th scope="col">nom</th>
@@ -21,15 +18,12 @@
 				</tr>
 
 				<tr>
-
-					<th scope="col">description</th>
-					<td>{{ activite.description }}</td>
-				</tr>
-
-				<tr>
-
-					<th scope="col">type</th>
-					<td>{{ activite.type }}</td>
+					<th scope="col">Coaches</th>
+					<th>
+						{% for cv in activite.cvs %}
+							{{ cv.UserId }}
+						{% endfor %}
+					</th>
 				</tr>
 				<td>
 					<button>

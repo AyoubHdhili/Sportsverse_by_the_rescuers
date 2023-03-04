@@ -3,13 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Cv;
+use App\Entity\User;
+
 use App\Form\CvType;
 use App\Repository\CvRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/cv')]
 class CvController extends AbstractController
@@ -23,6 +27,16 @@ class CvController extends AbstractController
     }
     #[Route('/list', name: 'list_cv')]
     public function list(CvRepository $repository): Response
+    {
+        // $repository = $doctrine->getRepository(Cv::class);
+        $cvs = $repository->findAll();
+        return $this->render('cv/list.html.twig', [
+            'controller_name' => 'CvController',
+            'cvs' => $cvs,
+        ]);
+    }
+    #[Route('/admin/list', name: 'admin_list_cv')]
+    public function admin_list(CvRepository $repository): Response
     {
         // $repository = $doctrine->getRepository(Cv::class);
         $cvs = $repository->findAll();
@@ -44,46 +58,71 @@ class CvController extends AbstractController
         ]);
     }
     #[Route('/add', name: 'add_cv')]
-    public function add(Request $request, ManagerRegistry $doctrine): Response
+    public function add(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): Response
     {
         $cv = new Cv();
         $form = $this->createForm(CvType::class, $cv);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $doctrine->getManager();
 
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
+
+                try {
+                    $image->move(
+                        $this->getParameter('cv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $cv->setImage($newFilename);
+            }
+
+            $em = $doctrine->getManager();
             $em->persist($cv);
             $em->flush();
             return $this->redirectToRoute('app_home');
         }
-        // return $this->render('cv/detail.html.twig', [
-        //     'formC' => $form->createView()
-        // ]);
         return $this->renderForm('cv/add.html.twig', [
             'cv' => $cv,
             'form' => $form,
         ]);
     }
     #[Route('/admin/add', name: 'admin_add_cv')]
-    public function admin_add(Request $request, ManagerRegistry $doctrine): Response
+    public function admin_add(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): Response
     {
         $cv = new Cv();
         $form = $this->createForm(CvType::class, $cv);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $doctrine->getManager();
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
 
+                try {
+                    $image->move(
+                        $this->getParameter('cv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $cv->setImage($newFilename);
+            }
+
+            $em = $doctrine->getManager();
             $em->persist($cv);
             $em->flush();
             return $this->redirectToRoute('list_cv');
         }
-        // return $this->render('cv/detail.html.twig', [
-        //     'formC' => $form->createView()
-        // ]);
         return $this->renderForm('cv/admin/add.html.twig', [
             'cv' => $cv,
             'form' => $form,

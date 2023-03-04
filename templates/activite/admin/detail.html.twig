@@ -3,10 +3,10 @@
 {% block title %}Users
 {% endblock %}
 
-{% block banner_content %}
+{% block body %}
 	<div class="card">
 		<div class="card-body">
-			<h5 class="card-title">CV list</h5>
+			<h5 class="card-title">Activites list</h5>
 
 			<!-- Table with hoverable rows -->
 			<table class="table table-hover">
@@ -31,14 +31,23 @@
 					<th scope="col">type</th>
 					<td>{{ activite.type }}</td>
 				</tr>
-				<td>
-					<button>
-						<a href="{{ path ('admin_list_activite')}}">Back to List</a>
-					</button>
-				</td>
-			</thead>
-		</table>
-		<!-- End Table with hoverable rows -->
+				<tr>
 
-	</div>
-</div>{% endblock %}{% block body %}{% endblock %}
+					<th scope="col">Coaches</th>
+					<td>
+						{% for i in activite.cvs %}
+							{{ i.user_id }}
+						{% endfor %}
+
+					</td>
+				</tr>
+			</td>
+		</tr>
+		<td>
+			<button>
+				<a href="{{ path ('admin_list_activite')}}">Back to List</a>
+			</button>
+		</td>
+	</thead>
+</table>
+<!-- End Table with hoverable rows --></div>{% endblock %}

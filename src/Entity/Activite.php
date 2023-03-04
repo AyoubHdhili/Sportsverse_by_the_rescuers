@@ -99,7 +99,6 @@ class Activite
             $this->cvs->add($cv);
             $cv->addActivite($this);
         }
-
         return $this;
     }
 
@@ -108,7 +107,6 @@ class Activite
         if ($this->cvs->removeElement($cv)) {
             $cv->removeActivite($this);
         }
-
         return $this;
     }
 }

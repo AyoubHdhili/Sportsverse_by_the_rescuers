@@ -50,6 +50,17 @@
 						{{form_errors(form.type,{
 						'attr' :{'class' : 'text-danger'},})}}
 					</div>
+					<div class="col-sm-10">
+						<label for="input-text" class="col-sm-4 col-form-label">CV</label>
+
+						{{form_widget(form.cvs,{
+						'attr' :{'class' : 'form-control'},})}}
+						{% if form.cvs is null %}
+							{{ form_errors(form) }}
+						{% endif %}
+						{{form_errors(form.cvs,{
+						'attr' :{'class' : 'text-danger'},})}}
+					</div>
 					<div class="text-center">
 						<br>
 						{{ form_widget(form) }}

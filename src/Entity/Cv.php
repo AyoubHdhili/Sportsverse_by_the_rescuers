@@ -17,16 +17,16 @@ class Cv
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Certification is required")]
+    #[Assert\NotBlank(message: "Certification est obligatoire")]
     private ?string $certification = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Description is required")]
+    #[Assert\NotBlank(message: "Description est obligatoire")]
 
     private ?string $description = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: "Tarif is required")]
+    #[Assert\NotBlank(message: "Tarif est obligatoire")]
     private ?float $tarif = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -37,12 +37,17 @@ class Cv
     private ?User $user_id = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: "Duree d'experience is required")]
+    #[Assert\NotBlank(message: "Duree d'experience est obligatoire"),]
+    #[Assert\Range(
+        min: 1,
+        max: 20,
+        notInRangeMessage: 'Ton experience doit etre entre {{ min }} ans et {{ max }} annees',
+    )]
 
     private ?int $duree_experience = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Niveau d'experience is required")]
+    #[Assert\NotBlank(message: "Niveau d'experience est obligatoire")]
 
     private ?string $level = null;
 
@@ -53,8 +58,6 @@ class Cv
     {
         $this->activites = new ArrayCollection();
     }
-
-
 
     public function getId(): ?int
     {

@@ -4,11 +4,15 @@ namespace App\Form;
 
 use App\Entity\Activite;
 use App\Entity\Cv;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class CvType extends AbstractType
 {
@@ -18,8 +22,29 @@ class CvType extends AbstractType
             ->add('certification')
             ->add('description')
             ->add('tarif')
-            ->add('image')
-            ->add('activites')
+            ->add('image', FileType::class, [
+                'label' => 'Votre photo de profile (Des fichier images seulement)',
+                'required' => false,
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => ['image/gif ', 'image/jpg', 'image/jpeg',],
+                        'mimeTypesMessage' => 'Please upload a valid Image document',
+                    ])
+                ],
+            ])
+            ->add(
+                'activites',
+                EntityType::class,
+                [
+                    'class' => Activite::class,
+                    'choice_label' => 'nom',
+                    'expanded' => true,
+                    'multiple' => true,
+                    'placeholder' => 'Choisir les activites',
+                ]
+            )
             ->add('duree_experience')
             ->add('level',  ChoiceType::class, [
                 'choices' => [
@@ -31,7 +56,14 @@ class CvType extends AbstractType
                 'multiple' => false,
                 'placeholder' => 'Ton niveau de experience',
             ])
-            ->add('user_id');
+            ->add(
+                'user_id',
+                EntityType::class,
+                [
+                    'class' => User::class,
+                    'choice_label' => 'Prenom',
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

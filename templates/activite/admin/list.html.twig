@@ -27,6 +27,7 @@
 						<th scope="col">nom</th>
 						<th scope="col">description</th>
 						<th scope="col">type</th>
+						<th scope="col">Coachs</th>
 						<th scope="col" colspan="3">Actions</th>
 
 						{# <th scope="col">user_id</th> #}
@@ -39,6 +40,12 @@
 							<td>{{ act.nom }}</td>
 							<td>{{ act.description }}</td>
 							<td>{{ act.type }}</td>
+							<td>
+								{% for i in act.cvs %}
+									{{ i.UserId }}
+								{% endfor %}
+							</td>
+
 							<td>
 								<button class="btn">
 									<a href="{{ path ('update_activite', {'id': act.id})}}">

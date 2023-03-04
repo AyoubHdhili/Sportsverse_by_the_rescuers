@@ -3,7 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Activite;
+use App\Entity\Cv;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
@@ -17,7 +20,16 @@ class ActiviteType extends AbstractType
             ->add('nom')
             ->add('description')
             ->add('type')
-            ->add('cvs');
+            ->add(
+                'cvs',
+                EntityType::class,
+                [
+                    'class' => Cv::class,
+                    'expanded' => true,
+                    'multiple' => true,
+                    'placeholder' => 'Choisir les Coachs',
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
