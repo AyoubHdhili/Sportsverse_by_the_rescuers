@@ -16,7 +16,7 @@ class EmplacementController extends AbstractController
     #[Route('/', name: 'app_emplacement')]
     public function index(ManagerRegistry $doctrine): Response
     {
-        $emplacements=$doctrine->getManager()->getRepository(Seance::class)->findAll();
+        $emplacements=$doctrine->getManager()->getRepository(Emplacement::class)->findAll();
         return $this->render('emplacement/index.html.twig', [
             'emplacements'=>$emplacements,
         ]);

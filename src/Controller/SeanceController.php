@@ -28,9 +28,13 @@ class SeanceController extends AbstractController
     public function index(ManagerRegistry $doctrine,UserRepository $userRepository,EmplacementRepository $emplacementRepository): Response
     {
         $user=$this->security->getUser();
+        if (is_null($user)) {
+            return $this->redirectToRoute('app_login');
+        }else{
         $username=$user->getUsername();
         $this->session->set('username',$username);
         $seances=$doctrine->getManager()->getRepository(Seance::class)->findSeanceByAdresse($username);
+        }
         return $this->render('seance/index.html.twig', [
             'seances' => $seances,
         ]);
@@ -39,9 +43,13 @@ class SeanceController extends AbstractController
     public function CoachSeance(ManagerRegistry $doctrine,UserRepository $userRepository): Response
     {
         $user=$this->security->getUser();
+        if(is_null($user)){
+            return $this->redirectToRoute('app_login');
+        }
+        else{
         $username=$user->getUsername();
         $this->session->set('username',$username);
-        $seances=$doctrine->getManager()->getRepository(Seance::class)->findSeanceByAdresse($username);
+        $seances=$doctrine->getManager()->getRepository(Seance::class)->findSeanceByAdresse($username);}
         return $this->render('coach_seance/list.html.twig', [
             'seances' => $seances,
         ]);
@@ -50,6 +58,9 @@ class SeanceController extends AbstractController
     public function addSeance(Request $request, ManagerRegistry $doctrine,UserRepository $userRepository,$id): Response
     {
         $user=$this->security->getUser();
+        if (is_null($user)) {
+            return $this->redirectToRoute('app_login');
+        }else{
         $username=$user->getUsername();
         $this->session->set('username',$username);
         $seance=new Seance();
@@ -62,7 +73,7 @@ class SeanceController extends AbstractController
             $em->persist($seance);
             $em->flush();
             return $this->redirectToRoute('app_seance');
-        }
+        }}
         return $this->render('seance/add.html.twig',['formS' => $form->createView(),]);
     }
     #[Route('/delete/{id}',name:'del_seance')]
