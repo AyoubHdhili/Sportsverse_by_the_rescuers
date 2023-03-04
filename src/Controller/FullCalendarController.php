@@ -22,7 +22,7 @@ class FullCalendarController extends AbstractController
                 'start'=>$event->getDate()->format('Y-m-d H:i:s'),
                 'end'=>$event->getDate()->format('Y-m-d H:i:s'),
                 //'title'=>$event->getAdresse_Client(),
-                //'description'=>$event->,
+                'description'=>$event->getDuree(),
                 //'backgroundColor'=>$event->getBackgroundColor(()),
                 //'borderColor'=>$event=>getBorderColor(),
                 //'textcolor'
@@ -32,4 +32,9 @@ class FullCalendarController extends AbstractController
             $data=json_encode(($rdvs));
         return $this->render('full_calendar/index.html.twig',compact('data'));
     }
+    #[Route('/calendar', name: 'app_calndar')]
+    public function Calendar(){
+        return $this->render('full_calendar/reservation.html.twig');
+    }
+    
 }

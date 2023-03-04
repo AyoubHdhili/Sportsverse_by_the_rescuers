@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Seance;
+use App\Entity\User;
 use App\Form\SeanceType;
 use App\Repository\EmplacementRepository;
 use App\Repository\UserRepository;
@@ -97,5 +98,12 @@ class SeanceController extends AbstractController
             return $this->redirectToRoute('app_seance');
         }
         return $this->render('seance/update.html.twig',['formS' => $form->createView(),]);
+    }
+    #[Route('/show/{id}',name:'detail_seance')]
+    public function detailSeance(Request $request,ManagerRegistry $doctrine,$id){
+        $seance=$doctrine->getManager()->getRepository(Seance::class)->find($id);
+        $ad=$seance->getAdresse_Client();
+        $client=$doctrine->getManager()->getRepository(User::class)->findUserByEmail($seance->getAdresse_Client());
+        return $this->render('seance/detail.html.twig',['seance'=>$seance,'client'=>$client]);
     }
 }
