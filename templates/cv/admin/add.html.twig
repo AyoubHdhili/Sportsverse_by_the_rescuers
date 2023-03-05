@@ -1,0 +1,102 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Add cv
+{% endblock %}
+
+{% block navigation %}
+	<li class="breadcrumb-item">
+		<a href="{{ path ('app_dashboard') }}">Home</a>
+	</li>
+	<li class="breadcrumb-item active">Ajouter Cv</li>
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="col-lg-6" style=" justify-content: center; align-items: center;">
+
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title" style="display: flex; position: absolute;">Ajouter un Cv</h5>
+				<button class="justify-content-end" style="display: flex; position: relative; left: 88%; margin-top: 7px; border-radius: 10px;">
+					<a href="{{ path ('admin_add_cv')}}">
+						<i class="bx bxs-list-ul"></i>Add Cv</a>
+				</button>
+
+				{{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+				<label for="input-text" class="col-sm-4 col-form-label">Activites</label>
+				<div class="col-sm-10">
+					{{form_widget(form.activites,{
+						'attr' :{'class' : 'form-control'},})}}
+					{{form_errors(form.activites,{
+						'attr' :{'class' : 'text-danger'},})}}
+				</div>
+
+				<label for="input-text" class="col-sm-4 col-form-label">Certification</label>
+				<div class="col-sm-10">
+					{{form_widget(form.certification,{
+						'attr' :{'class' : 'form-control'},
+					})}}
+					{{form_errors(form.certification,{
+						'attr' :{'class' : 'text-danger'},})}}
+				</div>
+
+				<label for="input-text" class="col-sm-4 col-form-label">Description</label>
+				<div class="col-sm-10">
+					{{form_widget(form.description,{
+						'attr' :{'class' : 'form-control'},
+					})}}
+					{{form_errors(form.description,{
+						'attr' :{'class' : 'text-danger'},})}}
+				</div>
+
+				<label for="input-text" class="col-sm-4 col-form-label">Tarif par heure</label>
+				<div class="col-sm-10">
+					{{form_widget(form.tarif,{
+						'attr' :{'class' : 'form-control'},})}}
+					{{form_errors(form.tarif,{
+						'attr' :{'class' : 'text-danger'},})}}
+				</div>
+
+				<label for="input-text" class="col-sm-4 col-form-label">Photo de profile</label>
+				<div class="col-sm-10">
+					{{form_widget(form.image,{
+						'attr' :{'class' : 'form-control'},})}}
+					{{form_errors(form.image,{
+						'attr' :{'class' : 'text-danger'},})}}
+				</div>
+				<label for="input-text" class="col-sm-5 col-form-label">Duree de ton experience</label>
+				<div class="col-sm-10">
+					{{form_widget(form.duree_experience,{
+						'attr' :{'class' : 'form-control'},})}}
+					{{form_errors(form.duree_experience,{
+						'attr' :{'class' : 'text-danger'},})}}
+				</div>
+
+				<label for="input-text" class="col-sm-4 col-form-label">Niveau de l'experience</label>
+				<div class="col-sm-10">
+					{{form_widget(form.level,{
+						'attr' :{'class' : 'form-radio'},})}}
+					{{form_errors(form.level,{
+						'attr' :{'class' : 'text-danger'},})}}
+				</div>
+				<label for="input-text" class="col-sm-4 col-form-label">User</label>
+				<div class="col-sm-10">
+					{{form_widget(form.user_id,{
+						'attr' :{'class' : 'form-control'},})}}
+					{{form_errors(form.user_id,{
+						'attr' :{'class' : 'text-danger'},})}}
+				</div>
+
+				<div class="text-center">
+					<br>
+					{{ form_widget(form) }}
+					<button type="submit" class="btn btn-primary">
+						{{ button_label|default('Ajouter') }}
+					</button>
+				</div>
+				{{form_end(form)}}
+			</div>
+		</div>
+	</div>
+{% endblock %}

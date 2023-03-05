@@ -1,0 +1,118 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block stylesheets %}
+	<style>
+		.error-message {
+			display: none;
+			color: #dc3545;
+		}
+
+		.input-error {
+			border: 1px solid #dc3545 !important;
+		}
+	</style>
+{% endblock %}
+
+
+{% block header %}{% endblock %}
+
+{% block body %}
+
+
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<h4 class="fw-bold py-3 mb-4">
+			<span class="text-muted fw-light">Update/</span>
+			User</h4>
+
+		<!-- Basic Layout -->
+		<div class="row">
+			<div class="col-xl">
+				<div class="card mb-4">
+					<div class="card-header d-flex justify-content-between align-items-center">
+						<h5 class="mb-0">Modifier les informations de l'utilisateur</h5>
+						<small class="text-muted float-end">Merged input group</small>
+					</div>
+					<div class="card-body">
+						{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+						<div class="mb-3">
+							<div class="row">
+								<div class="col">
+									<label class="form-label" for="basic-icon-default-fullname">Nom</label>
+									<div class="input-group input-group-merge">
+										<span id="basic-icon-default-nom" class="input-group-text">
+											<i class="bx bx-user"></i>
+										</span>
+										{{ form_widget(form.nom, { 'attr' : { 'class' : 'form-control' } }) }}
+									</div>
+									<p style="display: none" id="error-nom" class="invalid-feedback"></p>
+								</div>
+								<div class="col">
+									<label class="form-label" for="basic-icon-default-fullname">Prenom</label>
+									<div class="input-group input-group-merge">
+										<span id="basic-icon-default-prenom" class="input-group-text">
+											<i class="bx bx-user"></i>
+										</span>
+										{{ form_widget(form.prenom, { 'attr' : { 'class' : 'form-control' } }) }}
+									</div>
+									<p style="display: none" id="error-prenom" class="invalid-feedback"></p>
+								</div>
+							</div>
+
+						</div>
+						<div class="mb-3">
+							<label class="form-label" for="basic-icon-default-company">Email</label>
+							<div class="input-group input-group-merge">
+								<span id="basic-icon-default-email" class="input-group-text">
+									<i class="bx bx-envelope"></i>
+								</span>
+								{{ form_widget(form.email, { 'attr' : { 'class' : 'form-control' } }) }}
+								<span id="basic-icon-default-email" class="input-group-text">@example.com</span>
+							</div>
+							<p style="display: none" id="error-email" class="invalid-feedback"></p>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label" for="basic-icon-default-phone">Telephone</label>
+							<div class="input-group input-group-merge">
+								<span id="basic-icon-default-telephone" class="input-group-text">
+									<i class="bx bx-phone"></i>
+								</span>
+								{{ form_widget(form.num_tel, { 'attr' : { 'class' : 'form-control' } }) }}
+							</div>
+							<p style="display: none" id="error-telephone" class="invalid-feedback"></p>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" for="basic-icon-default-message">Adresse</label>
+							<div class="input-group input-group-merge">
+								<span id="basic-icon-default-cin" class="input-group-text">
+									<i class="bx bx-comment"></i>
+								</span>
+								{{ form_widget(form.adresse, { 'attr' : { 'class' : 'form-control' } }) }}
+							</div>
+							<p style="display: none" id="error-cin" class="invalid-feedback"></p>
+
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label" for="basic-icon-default-message">Role</label>
+							<div class="input-group input-group-merge">
+								<span id="basic-icon-default-role" class="input-group-text">
+									<i class="bx bx-comment"></i>
+								</span>
+								{{ form_widget(form.role, { 'attr' : { 'class' : 'form-select' } }) }}
+							</div>
+							<p style="display: none" id="error-role" class="invalid-feedback"></p>
+						</div>
+
+
+						{{ form_widget(form.submit, { 'attr' : { 'class' : 'btn btn-primary' } }) }}
+
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}
+	CV detail
+{% endblock %}
+
+{% block banner_content %}
+	<div class="card" style="margin-top: 160px; justify-content: center; align-items: center;">
+		<div class="card-body">
+			<h5 class="card-title">CV list</h5>
+
+			<!-- Table with hoverable rows -->
+			<table class="table table-hover">
+
+				<tr>
+					<th scope="col">Activites</th>
+					{% for act in cv.activites %}
+						<td>{{ act }}</td>
+					{% endfor %}
+				</tr>
+
+				<tr>
+					<th scope="col">Certification</th>
+					<td>{{ cv.certification|default('undefined') }}</td>
+				</tr>
+
+				<tr>
+					<th scope="col">Discription</th>
+					<td>{{ cv.description }}</td>
+				</tr>
+
+				<tr>
+					<th scope="col">tarif</th>
+					<td>{{ cv.tarif }}</td>
+				</tr>
+
+				<tr>
+					<th scope="col">Duree experience</th>
+					<td>{{ cv.duree_experience }}</td>
+				</tr>
+
+				<tr>
+					<th scope="col">Niveau</th>
+					<td>{{ cv.level }}</td>
+				</tr>
+
+				<tr>
+					<th scope="col">Action</th>
+					<td>
+						<button class="btn">
+							<a href="{{ path ('list_cv')}}">Back to List</a>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+{% block body %}{% endblock %}

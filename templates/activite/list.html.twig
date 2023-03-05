@@ -1,0 +1,42 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Users
+{% endblock %}
+
+{% block banner_content %}
+	<div class="card" style="margin-top: 160px; justify-content: center; align-items: center;">
+		<div class="card-body">
+			<h5 class="card-title">Activites list</h5>
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">nom</th>
+						<th scope="col">description</th>
+						<th scope="col">type</th>
+						<th scope="col">Action</th>
+
+						{# <th scope="col">user_id</th> #}
+					</tr>
+				</thead>
+				<tbody>
+					{% for act in activites %}
+
+						<tr>
+							<td>{{ act.nom }}</td>
+							<td>{{ act.description }}</td>
+							<td>{{ act.type }}</td>
+							<td>
+								<button class="btn">
+									<a href="{{ path ('show_activite', {'id': act.id})}}">
+										<i class="bx bxs-show"></i>Show</a>
+								</button>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+{% block body %}{% endblock %}
