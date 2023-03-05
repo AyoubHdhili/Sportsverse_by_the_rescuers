@@ -1,0 +1,59 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}List cv
+{% endblock %}
+
+{% block body %}
+
+	{# ************** #}
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">CV list</h5>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Prenom</th>
+
+						<th scope="col">image</th>
+						<th scope="col">activites</th>
+						<th scope="col">description</th>
+						<th scope="col">certification</th>
+						<th scope="col">tarif</th>
+						{# <th scope="col">duree experience</th> #}
+						<th scope="col">level</th>
+
+						{# <th scope="col">user_id</th> #}
+					</tr>
+				</thead>
+				<tbody>
+					{% for cv in cvs %}
+						<tr>
+							<th>{{ cv.UserId }}</th>
+
+							<td>{{ cv.image }}</td>
+							<td>
+								<ul>
+									{% for i in cv.activites %}
+										<li>{{ i.nom }}</li>
+									{% endfor %}
+								</ul>
+							</td>
+							<td>{{ cv.description }}</td>
+							<td>{{ cv.certification }}</td>
+							<td>{{ cv.tarif }}</td>
+							<td>{{ cv.duree_experience }}</td>
+							<td>{{ cv.level }}</td>
+							<td>
+								<button class="btn">
+									<a href="{{ path ('show_cv', {'id': cv.id})}}">
+										<i class="bx bxs-show"></i>Show</a>
+								</button>
+							</td>
+
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

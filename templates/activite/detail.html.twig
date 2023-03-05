@@ -1,0 +1,38 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Users
+{% endblock %}
+
+{% block banner_content %}
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">Activite</h5>
+
+			<!-- Table with hoverable rows -->
+			<table class="table table-hover">
+
+				<tr>
+
+					<th scope="col">nom</th>
+					<td>{{ activite.nom }}</td>
+				</tr>
+
+				<tr>
+					<th scope="col">Coaches</th>
+					<th>
+						{% for cv in activite.cvs %}
+							{{ cv.UserId }}
+						{% endfor %}
+					</th>
+				</tr>
+				<td>
+					<button>
+						<a href="{{ path ('list_activite')}}">Back to List</a>
+					</button>
+				</td>
+			</thead>
+		</table>
+		<!-- End Table with hoverable rows -->
+
+	</div>
+</div>{% endblock %}{% block body %}{% endblock %}
