@@ -1,4 +1,7 @@
 {
+
+
+    
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -41,7 +44,8 @@
         "symfony/web-link": "5.4.*",
         "symfony/yaml": "5.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "knplabs/knp-paginator-bundle": "^5.1"
     },
     "config": {
         "allow-plugins": {
@@ -102,4 +106,6 @@
         "symfony/stopwatch": "5.4.*",
         "symfony/web-profiler-bundle": "5.4.*"
     }
+    
+       
 }

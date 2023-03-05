@@ -23,6 +23,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Nom_produit</th>
+      
       <th scope="col">Quantite</th>
       <th scope="col">Prix</th>
       <th scope="col">Categorie</th>
@@ -30,12 +31,14 @@
     </tr>
   </thead>
   <tbody>
-   
+    
+    <img class=".images_petit " id="img-card" src="{{ asset('uploads/images/'~produit.image)}}" alt="{{ produit.nomproduit }}" >
     <tr>
       <th scope="row">
         <a href="#id">#{{ produit.id }}</a>
       </th>
       <td>{{ produit.nomProduit }}</td>
+      
       <td>
         <a href="#" class="text-primary">{{ produit.quantite }}</a>
       </td>

@@ -9,7 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Knp\Component\Pager\PaginatorInterface;
+use App\Repository\ProduitRepository;
 #[Route('/categorie')]
 class CategorieController extends AbstractController
 {
@@ -41,10 +42,40 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_categorie_show', methods: ['GET'])]
-    public function show(Categorie $categorie): Response
+    public function show(ProduitRepository $repositoryProduit, $option, CategorieRepository $categorieRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $categorie = $categorieRepository->findOneBy(['name' => $option]);
+
+        $produits = $repositoryProduit->findBy([ 'categorie' => $categorie->getId()]);
+
+        $repository = $this->getDoctrine()->getRepository(Produit::class);
+        $allProduct = $repository->findAll();
+       
+
+        $paginatorCat = $paginator->paginate(
+            $produits,
+              $request->query->getInt('page', 1),
+              6
+          );
+
+        if (!empty($request->get('categorie'))) {
+
+            $produits = $repositoryProduit->findAllWithFilters(
+                $request->get('categorie'),
+                $categorie->getId()
+            );
+            $paginatorCat = $paginator->paginate(
+                $produits,
+                  $request->query->getInt('page', 1),
+                  6
+              );
+        }
+
+        $categories = $categorieRepository->findAll();
         return $this->render('categorie/show.html.twig', [
             'categorie' => $categorie,
+            'categories' => $categories,
+            'paginatorCat' => $paginatorCat,
         ]);
     }
 

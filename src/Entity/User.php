@@ -50,11 +50,15 @@ class User
     #[ORM\Column(nullable: true)]
     private ?bool $etat = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class, orphanRemoval: true)]
+    private Collection $reviews_list;
+
     public function __construct()
     {
         $this->reclamations = new ArrayCollection();
         $this->commandes = new ArrayCollection();
         $this->seances = new ArrayCollection();
+        $this->reviews_list = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -244,6 +248,36 @@ class User
     public function setEtat(?bool $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviewsList(): Collection
+    {
+        return $this->reviews_list;
+    }
+
+    public function addReviewsList(Review $reviewsList): self
+    {
+        if (!$this->reviews_list->contains($reviewsList)) {
+            $this->reviews_list->add($reviewsList);
+            $reviewsList->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReviewsList(Review $reviewsList): self
+    {
+        if ($this->reviews_list->removeElement($reviewsList)) {
+            // set the owning side to null (unless already changed)
+            if ($reviewsList->getUser() === $this) {
+                $reviewsList->setUser(null);
+            }
+        }
 
         return $this;
     }

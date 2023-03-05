@@ -44,7 +44,7 @@
       <td>{{ produit.categorie }}</td>
       <td class="text-center">
         <a href="{{ path('app_produit_show', { id: produit.id }) }}" class="btn btn-primary">Afficher</a>
-        <a href="{{ path('app_produit_show', { id: produit.id }) }}" class="btn btn-secondary">Modifier</a>
+        <a href="{{ path('app_produit_edit', { id: produit.id }) }}" class="btn btn-secondary">Modifier</a>
       </td>
     </tr>
     {% else %}
