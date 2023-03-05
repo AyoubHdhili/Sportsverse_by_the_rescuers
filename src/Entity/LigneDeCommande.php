@@ -20,7 +20,7 @@ class LigneDeCommande
 
     #[ORM\ManyToOne(inversedBy: 'ligneDeCommandes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?commande $id_commande = null;
+    private ?Commande $id_commande = null;
 
     #[ORM\Column]
     #[Assert\Range(
@@ -49,12 +49,12 @@ class LigneDeCommande
         return $this;
     }
 
-    public function getIdCommande(): ?commande
+    public function getIdCommande(): ?Commande
     {
         return $this->id_commande;
     }
 
-    public function setIdCommande(?commande $id_commande): self
+    public function setIdCommande(?Commande $id_commande): self
     {
         $this->id_commande = $id_commande;
 
