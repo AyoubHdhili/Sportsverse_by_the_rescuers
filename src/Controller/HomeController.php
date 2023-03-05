@@ -10,15 +10,36 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'app_home')]
+
+    #[Route('/client/home/{id}', name: 'app_home')]
     public function index(): Response
     {
-        return $this->render('front.html.twig', [
+        return $this->render('home/index.html.twig', [
+            'controller_name' => 'HomeController',
+
+        ]);
+    }
+    #[Route('/client/banned', name: 'app_clientBanned')]
+    public function client_banned(): Response
+    {
+        return $this->render('home/banned.html.twig');
+    }
+    
+    #[Route('/coach/banned', name: 'app_coachBanned')]
+    public function coach_banned(): Response
+    {
+        return $this->render('home/banned.html.twig');
+    }
+
+    #[Route('/coach/homeCoach/{id}', name: 'app_home_coach')]
+    public function indexCoach(): Response
+    {
+        return $this->render('home/indexCoach.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }
     #[Route('/profile/{id}', name: 'app_profile')]
-    public function prodile(ManagerRegistry $doctrine, $id): Response
+    public function profile(ManagerRegistry $doctrine, $id): Response
     {
         $repository = $doctrine->getRepository(Cv::class);
         $cv = $repository->find($id);
@@ -26,6 +47,7 @@ class HomeController extends AbstractController
         return $this->render('profile.html.twig', [
             'controller_name' => 'HomeController',
             'cv' => $cv,
+
         ]);
     }
 }

@@ -2,54 +2,84 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use PhpParser\Node\Expr\Cast\String_;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("user")]
     private ?int $id = null;
-
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "nom doit etre non vide")]
+    #[Groups("user")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "prenom doit etre non vide")]
+    #[Groups("user")]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "adresse doit etre non vide")]
+    #[Groups("user")]
     private ?string $adresse = null;
 
     #[ORM\Column]
-    private ?int $num_tel = null;
+    #[Assert\NotBlank(message: "numero de telephone est vide")]
+    #[Groups("user")]
+    private ?String $num_tel = null;
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    #[ORM\Column]
+    #[Groups("user")]
+    private array $roles = [];
 
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $role = null;
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password;
+
+
+
+    private ?string $confirmPassword = null;
+
+
+    public ?string $rolle;
+
+
+
+    #[ORM\Column]
+    private ?bool $isVerified = null;
+
+    #[ORM\Column]
+    public ?bool $isBanned = null;
 
 
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Reclamation::class, orphanRemoval: true)]
     private Collection $reclamations;
 
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Commande::class, orphanRemoval: true)]
-    private Collection $commandes;
-
     #[ORM\OneToMany(mappedBy: 'client_id', targetEntity: Seance::class)]
     private Collection $seances;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $etat = null;
-
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commande::class)]
+    private Collection $commandes;
     public function __construct()
     {
         $this->reclamations = new ArrayCollection();
@@ -98,17 +128,19 @@ class User
         return $this;
     }
 
-    public function getNumTel(): ?int
+    public function getNumTel(): ?String
     {
         return $this->num_tel;
     }
 
-    public function setNumTel(int $num_tel): self
+    public function setNumTel(String $num_tel): self
     {
         $this->num_tel = $num_tel;
 
         return $this;
     }
+
+
 
     public function getEmail(): ?string
     {
@@ -121,7 +153,58 @@ class User
 
         return $this;
     }
+    public function setConfirmPassword(string $confirmPass): self
+    {
+        $this->confirmPassword = $confirmPass;
 
+        return $this;
+    }
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirmPassword;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): int
+    {
+        return  $this->id;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        // $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+
+
+        //   return array_unique($roles);
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -134,116 +217,62 @@ class User
         return $this;
     }
 
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
     public function getRole(): ?string
     {
-        return $this->role;
+        return $this->rolle;
     }
 
-    public function setRole(?string $role): self
+    public function setRole(string $role): self
     {
-        $this->role = $role;
+        $this->rolle = $role;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reclamation>
-     */
-    public function getReclamations(): Collection
+
+
+
+
+    public function isIsVerified(): ?bool
     {
-        return $this->reclamations;
+        return $this->isVerified;
     }
 
-    public function addReclamation(Reclamation $reclamation): self
+    public function setIsVerified(bool $isVerified): self
     {
-        if (!$this->reclamations->contains($reclamation)) {
-            $this->reclamations->add($reclamation);
-            $reclamation->setUserId($this);
-        }
+        $this->isVerified = $isVerified;
 
         return $this;
     }
 
-    public function removeReclamation(Reclamation $reclamation): self
+    public function isIsBanned(): ?bool
     {
-        if ($this->reclamations->removeElement($reclamation)) {
-            // set the owning side to null (unless already changed)
-            if ($reclamation->getUserId() === $this) {
-                $reclamation->setUserId(null);
-            }
-        }
-
-        return $this;
+        return $this->isBanned;
     }
 
-    /**
-     * @return Collection<int, Commande>
-     */
-    public function getCommandes(): Collection
+    public function setIsBanned(bool $isBanned): self
     {
-        return $this->commandes;
-    }
-
-    public function addCommande(Commande $commande): self
-    {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes->add($commande);
-            $commande->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): self
-    {
-        if ($this->commandes->removeElement($commande)) {
-            // set the owning side to null (unless already changed)
-            if ($commande->getUserId() === $this) {
-                $commande->setUserId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Seance>
-     */
-    public function getSeances(): Collection
-    {
-        return $this->seances;
-    }
-
-    public function addSeance(Seance $seance): self
-    {
-        if (!$this->seances->contains($seance)) {
-            $this->seances->add($seance);
-            $seance->setClientId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSeance(Seance $seance): self
-    {
-        if ($this->seances->removeElement($seance)) {
-            // set the owning side to null (unless already changed)
-            if ($seance->getClientId() === $this) {
-                $seance->setClientId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function isEtat(): ?bool
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(?bool $etat): self
-    {
-        $this->etat = $etat;
+        $this->isBanned = $isBanned;
 
         return $this;
     }
