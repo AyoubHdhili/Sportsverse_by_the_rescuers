@@ -15,11 +15,11 @@ class LigneDeCommande
 
     #[ORM\ManyToOne(inversedBy: 'ligneDeCommandes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?produit $id_produit = null;
+    private ?Produit $id_produit = null;
 
     #[ORM\ManyToOne(inversedBy: 'ligneDeCommandes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?commande $id_commande = null;
+    private ?Commande $id_commande = null;
 
     public function getId(): ?int
     {
