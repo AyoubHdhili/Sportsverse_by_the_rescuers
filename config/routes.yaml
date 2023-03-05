@@ -1,10 +1,10 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-app_reclamation_index:
-    path:  /reclamation/{page}/{nbre}
-    controller: App\Controller\ReclamationController::index
-    defaults:
-        page: 1
-        nbre: 2
+#app_reclamation_index:
+   # path:  /reclamation/{page}/{nbre}
+   # controller: App\Controller\ReclamationController::index
+    #defaults:
+     #   page: 1
+       # nbre: 2
   

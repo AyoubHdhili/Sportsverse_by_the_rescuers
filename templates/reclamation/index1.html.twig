@@ -3,11 +3,82 @@
 {% block title %}Reclamation index{% endblock %}
 
 {% block body %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                </ol>
+            </nav>
+        </div>
+    <div class="row ">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <div style="display: flex">
+                        <div class="col-md-5">
+                        </div>
+                        <form method="post" class="forms-sample" style="margin-left: -42px ;margin-top:20px;" >
+                            <div class="form-group col-md-4" style="display: flex; width: 100%!important; margin: 0px!important;">
 
+                                <div class="form-check">
+                                    <label class="form-check-label" style="width: 92px;margin-left: -2px;margin-right: 10px;">
+                                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="sujet">sujet</label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" style="width: 86px;margin-left: -2px;margin-right: 10px;">
+                                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="date" >date</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <label class="form-check-label" style="width: 86px;margin-left: -2px;margin-right: 10px;">
+                                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="nom" >nom</label>
+                                </div>
+
+                                <button type="Submit" class="btn btn-success btn-fw" style="margin: auto; background-color:#009cff; ">Trier</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <br>
+                    
+<div class="col-lg-17">
+ <div class="card">
+ <div class="card-body">
+ <ul class="navbar-nav w-100" style="margin-top: 15px;">
+                <ul class="navbar-nav w-100" style="margin-top:3px;">
+                        <li class="nav-item w-100">
+                
+            <div class="row" style="display: flex;align-items: center;justify-content: center;margin-top :40px">
+ 
+                            <form name="Search-method" id="Search-method"method="post" class="forms-sample" style="display: flex">
+                                <div class="form-group col-md-5">
+                                    <label style="margin-top: 11px;margin-left: 10px;margin-right: 14px;padding-bottom: 7px;;">Option Recherche</label>
+                                    <select name="optionsearch" class="js-example-basic-single" style="width: 200px;height: 38px; color: white; background-color: #009CFF; border-radius: 4px;text-align: center;border: 2px solid #0090e7;margin-right: 15px;">
+                                        <option value="">Choisi un Critére</option>
+                                        <option value="sujet">sujet</option>
+                                        <option value="date">date</option>
+                                        <option value="nom">nom</option>
+                                        
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-7">
+                                    <div class="input-group">
+                                        <input name="Search" type="text" class="form-control" placeholder="Recherche" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-sm btn-primary" type="Submit">Chercher</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
 
 
     <h1>Reclamation index</h1>
-       <a href="{{ path('app_reclamation_statisreclamation') }}"><button class="btn btn-success mb-3">STATISTIQUE</button></a>
+       <a href="{{ path('app_reclamation_statisreclamation') }}"><button class="btn btn-success mb-3">STATISTIQUES</button></a>
+              <a href="{{ path('app_reclamation_listr') }}"><button class="btn btn-success mb-3">Imprimer</button></a>
+
     <table class="table">
         <thead>
             <tr>

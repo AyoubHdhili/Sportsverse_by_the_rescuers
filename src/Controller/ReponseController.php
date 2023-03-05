@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Reclamation;
 use App\Form\ReponseType;
 use App\Repository\ReponseRepository;
+use App\Repository\ReclamationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,58 +43,19 @@ class ReponseController extends AbstractController
         ]);
     }
 
-    #[Route('/', name: 'app_reponse_index', methods: ['GET','POST'])]
-    public function index(ReponseRepository $ReponseRepository,EntityManagerInterface $entityManager,Request $request    ): Response
+    #[Route('/', name: 'app_reponse_index', methods: ['GET','POST',])]
+    public function index(ReponseRepository $ReponseRepository,EntityManagerInterface $entityManager,Request $request): Response
     {
        
         $reponses = $entityManager
             ->getRepository(reponse::class)
             ->findAll();
-        $back = null;
-        if($request->isMethod("POST")){
-            if ( $request->request->get('optionsRadios')){
-                $SortKey = $request->request->get('optionsRadios');
-                switch ($SortKey){
-                    case 'sujet':
-                        $reponses = $ReponseRepository->SortBysujet();
-                        break;
-
-                    case 'reponse':
-                        $reponses = $ReponseRepository->SortByreponse();
-                        break;
-
-                
-
-                }
-            }
-            else
-            {
-                $type = $request->request->get('optionsearch');
-                $value = $request->request->get('Search');
-                switch ($type){
-                    case 'sujet':
-                        $reponses = $ReponseRepository->findBysujet($value);
-                        break;
-
-               
-
-                    case 'reponse':
-                        $reponses = $ReponseRepository->findByreponse($value);
-                        break;
-
-
-                }
-            }
-
-            if ( $reponses ){
-                $back = "success";
-            }else{
-                $back = "failure";
-            }
-        }
+       
+        
         return $this->render('reponse/index.html.twig', [
             'reponses'=>$reponses,
-            'back' => $back,
+
+        
         ]);
     }
     
@@ -122,18 +84,64 @@ class ReponseController extends AbstractController
    
    
 
-    #[Route('/lesReclamations', name: 'app_reclamation1_index', methods: ['GET'])]
-    public function index1(EntityManagerInterface $entityManager): Response
+    #[Route('/lesReclamations', name: 'app_reclamation1_index', methods: ['GET','POST'])]
+    public function index1(EntityManagerInterface $entityManager,ReclamationRepository $ReclamationRepository,Request $request): Response
     {
         $reclamations = $entityManager
             ->getRepository(Reclamation::class)
             ->findAll();
-
+            $back = null;
+            if($request->isMethod("POST")){
+                if ( $request->request->get('optionsRadios')){
+                    $SortKey = $request->request->get('optionsRadios');
+                    switch ($SortKey){
+                         case 'sujet':
+                            $reclamations = $ReclamationRepository->SortBysujet();
+                            break;
+                         case 'date':
+                            $reclamations = $ReclamationRepository->SortBydate();
+                            break;
+                         case 'nom':
+                            $reclamations = $ReclamationRepository>SortBynom();
+                            break;
+    
+                    
+    
+                    }
+                }
+                else
+                {
+                    $type = $request->request->get('optionsearch');
+                    $value = $request->request->get('Search');
+                    switch ($type){
+                        case 'sujet':
+                            $reclamations = $ReclamationRepository->findBysujet($value);
+                            break;
+    
+                   
+    
+                        case 'date':
+                            $reclamations = $ReclamationRepository->findBydate($value);
+                            break;
+                            case 'nom':
+                                $reclamations = $ReclamationRepository->findBynomClient($value);
+                                break;
+    
+                    }
+                }
+    
+                if ( $reclamations ){
+                    $back = "success";
+                }else{
+                    $back = "failure";
+                }
+            }
         return $this->render('reclamation/index1.html.twig', [
             'reclamations' => $reclamations,
+            'back'=>$back,
         ]);
+    
     }
-
     #[Route('/{id}', name: 'app_reponse_show', methods: ['GET'])]
     public function show(Reponse $reponse): Response
     {

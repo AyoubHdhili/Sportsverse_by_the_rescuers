@@ -57,7 +57,7 @@ class Reclamation
      * @Groups("reclamations")
      */
 
-    private $etat = '\'en cours \'';
+    private $etat = 'en cours ';
 
     /**
      * @var \DateTime

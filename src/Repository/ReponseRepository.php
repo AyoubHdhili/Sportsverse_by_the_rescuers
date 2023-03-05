@@ -63,22 +63,7 @@ class ReponseRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-public function SortBysujet(){
-    return $this->createQueryBuilder('e')
-        ->orderBy('e.sujet','ASC')
-        ->getQuery()
-        ->getResult()
-        ;
-}
 
-public function SortByreponse()
-{
-    return $this->createQueryBuilder('e')
-        ->orderBy('e.reponse','ASC')
-        ->getQuery()
-        ->getResult()
-        ;
-}
 
 }
 

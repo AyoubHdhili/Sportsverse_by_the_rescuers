@@ -13,13 +13,49 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReponseRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\BarChart;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 
 
 #[Route('/reclamation')]
 class ReclamationController extends AbstractController
 {
-    #[Route('/reclamation/{page}/{nbre}', name: 'app_reclamation_index', methods: ['GET'])]
+    #[Route('/listr', name: 'app_reclamation_listr', methods: ['GET'])]
+    public function listr(ReclamationRepository $reclamationRepository): Response
+    {
+        
+
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        $l = $reclamationRepository->findAll();
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('reclamation/lister.html.twig', [
+            'reclamations' =>$l,
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => true
+        ]);
+        return new Response();
+    }
+    #[Route('/lesreclamation/{page?1}/{nbre?3}', name: 'app_reclamation_index', methods: ['GET'])]
     public function index(ReclamationRepository $reclamationRepository,EntityManagerInterface $entityManager,$page,$nbre,ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(Reclamation::class);
@@ -70,24 +106,53 @@ public function statisreclamation(ReclamationRepository $ReclamationRepository)
 }
 
     #[Route('/new', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReclamationRepository $reclamationRepository,EntityManagerInterface $entityManager): Response
-    {
-        $reclamation = new Reclamation();
-        $form = $this->createForm(ReclamationType::class, $reclamation);
+    public function create(Request $request, EntityManagerInterface $entityManager,NotifierInterface $notifier)
+    {   $reclamation = new reclamation();
+         $form = $this->createForm(ReclamationType::class, $reclamation);
         $form->handleRequest($request);
+        $myDictionary = array(
+            "tue", "merde", "pute",
+            "gueule",
+            "débile",
+            "con",
+            "abruti",
+            "clochard",
+            "sang"
+        );
+        dump($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $reclamationRepository->save($reclamation, true);
-           //$entityManager->persist($reclamation);
-           // $entityManager->flush();
+            $myText = $request->get("reclamation")['description'];
+            $badwords = new PhpBadWordsController();
+            $badwords->setDictionaryFromArray($myDictionary)
+                ->setText($myText);
+            $check = $badwords->check();
+            dump($check);
+            if ($check){
+            $notifier->send(new Notification('Mauvais mot ', ['browser']));} 
+                else {
+
+           
+                $entityManager = $this->getdoctrine()->getManager();
+                $entityManager->persist($reclamation);
 
 
-            return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
+
+                $entityManager->flush();
+                $this->addFlash(
+                    'info',
+                    'Reclamation ajouté !!'
+                );
+            }
+
+            return $this->redirectToRoute('app_reclamation_new', [], Response::HTTP_SEE_OTHER);
+      
         }
-
-        return $this->renderForm('reclamation/new.html.twig', [
+    
+        return $this->render('reclamation/new.html.twig', [
             'reclamation' => $reclamation,
-            'form' => $form,
+            'form' => $form->createView(),
+
         ]);
     }
     #[Route('/Reponse', name: 'app_reponse_index1', methods: ['GET'])]
@@ -134,4 +199,5 @@ public function statisreclamation(ReclamationRepository $ReclamationRepository)
 
         return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
     }
+   
 }

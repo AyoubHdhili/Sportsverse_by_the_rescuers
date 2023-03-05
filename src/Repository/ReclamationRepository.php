@@ -58,6 +58,54 @@ class ReclamationRepository extends ServiceEntityRepository
         ->getQuery()
         ->getSingleScalarResult();
     }
+    public function SortBysujet(){
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.sujet','ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    
+    public function SortBydate()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.date','ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function SortBynom()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.nomClient','ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function findBysujet( $sujet)
+{
+    return $this-> createQueryBuilder('e')
+        ->andWhere('e.sujet LIKE :sujet')
+        ->setParameter('sujet','%' .$sujet. '%')
+        ->getQuery()
+        ->execute();
+}
+public function findBynom( $nomClient)
+{
+    return $this-> createQueryBuilder('e')
+        ->andWhere('e.nomClient LIKE :nomClient')
+        ->setParameter('nomClient','%' .$nomClient. '%')
+        ->getQuery()
+        ->execute();
+}
+public function findBydate( $date)
+{
+    return $this-> createQueryBuilder('e')
+        ->andWhere('e.date LIKE :date')
+        ->setParameter('date','%' .$date. '%')
+        ->getQuery()
+        ->execute();
+}
 
 //    /**
 //     * @return Reclamation[] Returns an array of Reclamation objects

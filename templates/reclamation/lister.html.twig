@@ -1,0 +1,35 @@
+{% block body %}
+    <center>
+<h1 align="center" > Reclamations</h1>
+</center>
+      
+  <table class="table" align="center">
+        <thead>
+            <tr>
+             
+                <th>Sujet</th>
+                <th>Description</th>
+                <th>Etat</th>
+                <th>Date</th>
+                <th>Nom_client</th>
+             
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+            
+                <td>{{ reclamation.sujet }}</td>
+                <td>{{ reclamation.description }}</td>
+                <td>{{ reclamation.etat }}</td>
+                <td>{{ reclamation.date ? reclamation.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ reclamation.nomClient }}</td>
+                </td>
+              
+            </tr>    
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
