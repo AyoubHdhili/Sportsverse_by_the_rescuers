@@ -6,6 +6,7 @@ use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
@@ -16,12 +17,20 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+   
+    #[Assert\NotBlank(message:"nom doit etre pas vide")]
+    #[Assert\Length(min:3,max:20,minMessage:"Le nom du produit ne contient pas au min 3 caractères.")]
     private ?string $nom_produit = null;
 
     #[ORM\Column]
+   
+    #[Assert\Positive(message: "Prix doit etre positif")]
+
     private ?float $prix_ttc = null;
 
     #[ORM\Column]
+    
+    #[Assert\Positive(message: "Quantité doit etre positif")]
     private ?int $quantite = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -29,14 +38,26 @@ class Produit
 
     #[ORM\OneToMany(mappedBy: 'id_produit', targetEntity: LigneDeCommande::class, orphanRemoval: true)]
     private Collection $ligneDeCommandes;
-
+    
     #[ORM\ManyToOne(inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;
 
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Review::class, orphanRemoval: true)]
+    private Collection $reviews;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
+
+   
+
     public function __construct()
     {
         $this->ligneDeCommandes = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+        
+        
     }
 
     public function getId(): ?int
@@ -91,6 +112,7 @@ class Produit
 
         return $this;
     }
+   
 
     /**
      * @return Collection<int, LigneDeCommande>
@@ -127,10 +149,67 @@ class Produit
         return $this->categorie;
     }
 
-    public function setCategorie(?categorie $categorie): self
+    public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return (string) $this->nom_produit;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReviews(Review $reviews): self
+    {
+        if (!$this->reviews->contains($reviews)) {
+            $this->reviews->add($reviews);
+            $reviews->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReviews(Review $reviews): self
+    {
+        if ($this->reviews->removeElement($reviews)) {
+            // set the owning side to null (unless already changed)
+            if ($reviews->getProduit() === $this) {
+                $reviews->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    
+
+    
+
+    
+    
+
+    
+
+    
 }

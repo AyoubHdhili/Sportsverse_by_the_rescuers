@@ -1,0 +1,64 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}
+
+
+
+{% block navigation %}
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="#">Home</a>
+    </li>
+    <li class="breadcrumb-item active">Categories</li>
+  </ol>
+</nav>
+{% endblock %} {% block cardd %}
+<h5 class="card-title">
+     
+  
+</h5>
+
+<table class="table table-bordered border primary">
+  <thead>
+    
+    <tr>
+      <th scope="col">#</th>
+     
+      
+      
+      <th scope="col">Categorie</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+   
+    <tr>
+      <th scope="row">
+        <a href="#id">#{{ categorie.id }}</a>
+      </th>
+      <td>{{ categorie.nom }}</td>
+      
+      
+
+    
+      <td class="text-center">
+        
+       
+        <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}" class="btn btn-primary">Modifier</a>
+        {{ include('categorie/_delete_form.html.twig') }}
+      </td>
+    </tr>
+    
+    
+    
+    
+  </tbody>
+</table>
+{% endblock %}
+
+
+<a href="{{ path('app_categorie_index') }}" class="btn btn-primary">Retourner a la liste</a>
+{% endblock %}

@@ -6,7 +6,7 @@ use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
 {
@@ -16,6 +16,7 @@ class Categorie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:3,max:20,minMessage:"Le nom de la categorie ne contient pas au min 3 caractères.")]
     private ?string $nom = null;
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Produit::class)]
@@ -42,7 +43,10 @@ class Categorie
 
         return $this;
     }
-
+    public function __toString()
+    {
+        return $this->nom;
+    }
     /**
      * @return Collection<int, Produit>
      */
@@ -72,4 +76,6 @@ class Categorie
 
         return $this;
     }
+    
 }
+
