@@ -1,36 +1,34 @@
 {% extends 'front.html.twig' %}
 
-{% block title %}Reclamation index{% endblock %}
+{% block title %} SportsVerse {% endblock %}
 
 {% block body %}
-    <h1>Reclamation index</h1>
-
+    <h1> Vos Reclamations</h1>
+        <a href="{{ path('app_reclamation_new') }}"><button class="btn btn-success mb-3">Créer</button></a>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+             
                 <th>Sujet</th>
                 <th>Description</th>
                 <th>Etat</th>
                 <th>Date</th>
                 <th>Nom_client</th>
-                <th>actions</th>
+              <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for reclamation in reclamations %}
             <tr>
-                <td>{{ reclamation.id }}</td>
+            
                 <td>{{ reclamation.sujet }}</td>
                 <td>{{ reclamation.description }}</td>
                 <td>{{ reclamation.etat }}</td>
                 <td>{{ reclamation.date ? reclamation.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ reclamation.nomClient }}</td>
-                <td>
-                  
-                   
-                    <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">show</a>
-                    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+                </td>
+                  <td>      
+                    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}"><button class="btn btn-success mb-3">modifier</button></a>
                 </td>
             </tr>
         {% else %}
@@ -40,6 +38,40 @@
         {% endfor %}
         </tbody>
     </table>
+    {% if isPaginated is defined and isPaginated %}
+        <div class="row mt-2">
+            <nav aria-label="col Page navigation example" style="margin-top:20px; margin-left:506px;" >
+                <ul class="pagination" >
+                    {% if page != 1 %}
+                        <li class="page-item" >
+                            <a
+                                    class="page-link"
+                                    href="{{ path('app_reclamation_index', {page: page - 1, nbre: nbre}) }}"
+                         style="color:white ; background-color:green ;"  >
+                                Précédent
+                            </a></li>
+                    {% endif %}
+                    {% for i in range(1, nbrePage) %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="{{ path('app_reclamation_index', {page: i, nbre: nbre}) }}"
+                          style="color:white ; background-color:green ;"  >{{ i }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    {% if page != nbrePage %}
+                        <li class="page-item">
+                            <a
+                                    class="page-link"
+                                    href="{{ path('app_reclamation_index', {page: page + 1, nbre: nbre}) }}"
+                          style="color:white ; background-color:green;"  >Suivant</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
 
-    <a href="{{ path('app_reclamation_new') }}">Create new</a>
+        </div>
+    {% endif %}
+
+
 {% endblock %}

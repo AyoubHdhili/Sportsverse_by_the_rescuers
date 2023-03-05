@@ -39,6 +39,26 @@ class ReclamationRepository extends ServiceEntityRepository
         }
     }
 
+    public function barDep(){
+        return $this->createQueryBuilder('r')
+        ->select('count(r.id)')
+        ->where('r.etat LIKE :reclamation')
+        // ->where('r.typee LIKE : reclamation')
+        ->setParameter('reclamation','en cours ')
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
+    
+    public function barArr(){
+        return $this->createQueryBuilder('r')
+        ->select('count(r.id)')
+         ->where('r.etat LIKE :reclamation')
+        // ->where('r.typee LIKE :  reclamation')
+        ->setParameter('reclamation','traite')
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Reclamation[] Returns an array of Reclamation objects
 //     */

@@ -1,0 +1,46 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block body %}
+
+
+
+    <h1>Reclamation index</h1>
+       <a href="{{ path('app_reclamation_statisreclamation') }}"><button class="btn btn-success mb-3">STATISTIQUE</button></a>
+    <table class="table">
+        <thead>
+            <tr>
+             
+                <th>Sujet</th>
+                <th>Description</th>
+                <th>Etat</th>
+                <th>Date</th>
+                <th>Nom_client</th>
+              <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+            
+                <td>{{ reclamation.sujet }}</td>
+                <td>{{ reclamation.description }}</td>
+                <td>{{ reclamation.etat }}</td>
+                <td>{{ reclamation.date ? reclamation.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ reclamation.nomClient }}</td>
+                </td>
+                  <td>      
+                    <a href="{{ path('app_mail',{'idreclamation': reclamation.id })}}"><button class="btn btn-success mb-3">repondre</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

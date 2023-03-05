@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\BarChart;
 /**
  * Reclamation
  *
@@ -22,11 +24,14 @@ class Reclamation
      */
     private $id;
 
+
     /**
      * @var string
      *
      * @ORM\Column(name="sujet", type="string", length=255, nullable=false)
-     */
+      * @Groups("posts:read")
+     * @Groups("reclamations")
+     * */ 
     #[Assert\NotBlank(message:" *suujet manquant")]
     #[Assert\Length(min:5,minMessage:" *sujet ne contient pas le minimum des caractères.")]
 
@@ -36,7 +41,9 @@ class Reclamation
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
-     */
+     * @Groups("posts:read")
+     * @Groups("reclamations")
+     * */
     #[Assert\NotBlank(message:" *description manquant")]
     #[Assert\Length(min:5,minMessage:" *description ne contient pas le minimum des caractères.")]
 
@@ -45,7 +52,9 @@ class Reclamation
     /**
      * @var string|null
      *
-     * @ORM\Column(name="etat", type="string", length=255, nullable=true, options={"default"="'en cours '"})
+     * @ORM\Column(name="etat", type="string", length=255, nullable=true, options={"default"="en cours"})
+     * @Groups("posts:read")
+     * @Groups("reclamations")
      */
 
     private $etat = '\'en cours \'';
@@ -54,6 +63,8 @@ class Reclamation
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime", nullable=false)
+     * @Groups("posts:read")
+     * @Groups("reclamations")
      */
     private $date;
 
@@ -61,7 +72,10 @@ class Reclamation
      * @var string
      *
      * @ORM\Column(name="nom_client", type="string", length=255, nullable=false)
+     * @Groups("posts:read")
+     * @Groups("reclamations")
      */
+    #[Assert\NotBlank(message:" *nom manquant")]
      private $nomClient; 
 
     /**
@@ -71,7 +85,10 @@ class Reclamation
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      * })
-     */
+     *   * @Groups("posts:read")
+     * @Groups("reclamations")
+     * */ 
+    
     private $idUser;
 
     public function getId(): ?int

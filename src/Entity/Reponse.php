@@ -26,6 +26,9 @@ class Reponse
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
+    #[Assert\NotBlank(message:" *description manquant")]
+    #[Assert\Length(min:5,minMessage:" *description ne contient pas le minimum des caractères.")]
+    
     private $description;
 
     /**
