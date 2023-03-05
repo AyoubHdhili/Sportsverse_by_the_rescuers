@@ -1,0 +1,135 @@
+{% extends 'home/index.html.twig' %}
+
+{# {% block stylesheets %}
+	<style>
+		.error-message {
+			display: none;
+			color: red;
+		}
+ 
+		.single-input-fields {
+			margin-bottom: 10px;
+		}
+
+		.input-error {
+			border: 1px solid red !important;
+		}
+	</style>
+{% endblock %} #}
+
+{% block header %}{% endblock %}
+
+{% block body %}
+	{# <div class="login-form-area">
+																				{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+																				<div class="login-form">
+																		
+																					<div class="login-heading">
+																						<span>Login</span>
+																						<p>Enter Login details to get access</p>
+																					</div>
+																		
+																					<div class="input-box">
+																		
+																		
+																						<div class="single-input-fields">
+																							<label>Email</label>
+																							{{ form_widget(form.email, { 'attr' : { 'placeholder':'Email' } }) }}
+																							<p id="error-email" class="error-message"></p>
+																						</div>
+																		
+																						<div class="single-input-fields">
+																							<label>Password</label>
+																							{{ form_widget(form.password, { 'attr' : { 'placeholder' : 'Enter Password' } }) }}
+																							<p id="error-password" class="error-message"></p>
+																						</div>
+																		
+																						<div class="single-input-fields login-check">
+																							<input type="checkbox" id="remember-me" name="keep-log">
+																							<label for="remember-me">Keep me logged in</label>
+																							<a href="#" class="f-right">Forgot Password?</a>
+																						</div>
+																		
+																		
+																					</div>
+																		
+																		
+																					<div class="login-footer">
+																						<p>Don’t have an account?
+																							<a href="{{ path('app_add_user') }}">Sign Up</a>
+																							here</p>
+																		
+																						{{ form_widget(form) }}
+																						<button type="submit" class="btn btn-primary">
+																							{{ button_label|default('login') }}
+																						</button>
+																					</div>
+																				</div>
+																				{{ form_end(form) }}
+																			</div> #}
+	{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<img class="img-fluid" src="{{asset('img/login.jpg')}}" alt="">
+						<div class="hover">
+							<h4>welcome to sportsverse</h4>
+							<p>******hello in our application sportsverse ******</p>
+							<a class="primary-btn" href="{{ path('app_add_user') }}">Create an Account</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Log in to enter</h3>
+						<div class="row login_form" id="contactForm">
+
+							<div class="col-md-12 form-group">
+								{{ form_widget(form.email, { 'attr' : { 'placeholder':'Email','class':'form-control' } }) }}
+								<p id="error-email" class="error-message"></p>
+								{{form_errors(form.email)}}
+							</div>
+
+							<div class="col-md-12 form-group">
+								{{ form_widget(form.password, { 'attr' : { 'placeholder' : 'Enter Password','class':'form-control' } }) }}
+								<p id="error-password" class="error-message"></p>
+								{{form_errors(form.password)}}
+							</div>
+
+							<div class="col-md-12 form-group">
+								<div class="creat_account">
+									<input type="checkbox" id="f-option2" name="selector">
+									<label for="f-option2">Keep me logged in</label>
+								</div>
+							</div>
+							<div class="col-md-12 form-group">
+
+								{{ form_widget(form.submit, { 'attr': { 'class' : 'btn btn-primary'}}) }}
+
+								<a href="#">Forgot Password?</a>
+							</div>
+							{{ form_end(form) }}
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('assets/js/sweetalert2@11.js') }}"></script>
+	<script>
+		{% if message is defined %}
+Swal.fire({icon: 'error', title: 'Oops...', text: "{{ message|raw }}"}){% endif %}{% if errors|length > 0 %}{% for error in errors %}document.getElementById("login_                            {{ error.propertyPath }}").classList.add('input-error')
+document.getElementById("error-                            {{ error.propertyPath }}").style.display = "block"
+document.getElementById("error-                            {{ error.propertyPath }}").innerText = "{{ error.message|raw }}"{% endfor %}{% endif %}
+	</script>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'home/index.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
+{% block header %}{% endblock %}
+
+{% block body %}
+
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<img class="img-fluid" src="{{asset('img/login.jpg')}}" alt="">
+						<div class="hover">
+							<h4>welcome to sportsverse</h4>
+							<p>******hello in our application sportsverse ******</p>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+
+
+					<form method="post">
+						<div class="login_form_inner">
+							<div class="row-md-2">
+								{% if app.flashes('alert') %}
+									<div class="alert alert-danger">
+										mail invalid
+									</div>
+								{% endif %}
+
+
+							</div>
+							<h3>mail enter</h3>
+							<div class="row login_form" id="contactForm">
+
+								<div class="col-md-12 form-group">
+									<div>
+										{{form_label(forgotForm.email, 'email')}}
+										{{form_widget(forgotForm.email,{
+								'attr' :{
+									'class' : 'form-control',
+									'placeholder':'email'
+								},
+							})}}
+										{{form_errors(forgotForm.email)}}
+									</div>
+
+
+									<button class="primary-btn" type="submit">
+										send
+									</button>
+
+
+								</div>
+
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	{% endblock %}
+	{% block footer %}{% endblock %}
