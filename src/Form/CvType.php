@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Activite;
 use App\Entity\Cv;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\AbstractType;
@@ -40,8 +41,15 @@ class CvType extends AbstractType
                 [
                     'class' => Activite::class,
                     'choice_label' => 'nom',
-                    'expanded' => true,
+                    'expanded' => false,
                     'multiple' => true,
+                    'attr' => [
+                        'class' => 'select2'
+                    ],
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('a')
+                            ->orderBy('a.nom', 'ASC');
+                    },
                     'placeholder' => 'Choisir les activites',
                 ]
             )
