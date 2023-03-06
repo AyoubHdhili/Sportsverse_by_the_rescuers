@@ -42,6 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: "numero de telephone est vide")]
     #[Groups("user")]
     private ?String $num_tel = null;
+
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email;
 
@@ -312,6 +313,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
     public function __toString()
     {
         return (string) $this->nom;
