@@ -48,11 +48,18 @@ class SeanceController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         else{
-        $username=$user->getUsername();
-        $this->session->set('username',$username);
-        $seances=$doctrine->getManager()->getRepository(Seance::class)->findSeanceByAdresse($username);}
+            $username=$user->getUsername();
+            $coach=$doctrine->getManager()->getRepository(User::class)->findOneByEmail($username);
+            $this->session->set('username',$username);
+            $seances=$doctrine->getManager()->getRepository(Seance::class)->findSeanceCoach($coach->getId());
+            $clients=[];
+            for ($i=0; $i < count($clients) ; $i++) { 
+                    $clients[$i]=$doctrine->getManager()->getRepository(User::class)->findOneByEmail($seances[$i]->getAdresse_Client());
+            }
+        }
         return $this->render('coach_seance/list.html.twig', [
             'seances' => $seances,
+            'client'=>$clients,
         ]);
     }
     #[Route('/add/{id}',name:'add_seance')]
