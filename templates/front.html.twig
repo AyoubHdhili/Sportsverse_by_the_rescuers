@@ -72,6 +72,17 @@
 										<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
 									</ul>
 								</li>
+																<li class="nav-item submenu dropdown">
+									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coaching</a>
+									<ul class="dropdown-menu">
+										<li class="nav-item">
+											<a class="nav-link" href="{{path('app_list_coach')}}">Resever Séance</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{{path('app_seance')}}">Suivi Séance</a>
+										</li>
+									</ul>
+								</li>
 								<li class="nav-item submenu dropdown">
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
 									<ul class="dropdown-menu">
@@ -90,7 +101,7 @@
 											<a class="nav-link" href="{{path('app_login')}}">Se Connecter</a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="{{path('app_registration')}}">Inscrire</a>
+											<a class="nav-link" href="{{path('app_register')}}">Inscrire</a>
 										</li>
 									</ul>
 								</li>
@@ -960,7 +971,6 @@
 		<!-- Start related-product Area -->
 
 		<!-- End related-product Area -->
-{% block footer %}
 		<!-- start footer Area -->
 			{% block footer %}
 				<footer class="footer-area section_gap"> <div class="container">
@@ -1063,7 +1073,6 @@
 				<script src="{{asset('js/gmaps.min.js')}}"></script>
 				<script src="{{asset('js/main.js')}}"></script>
 
-			{% endblock %}
 		</body>
 	</body>
 </html></div><div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
