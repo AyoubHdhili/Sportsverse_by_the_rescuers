@@ -1,0 +1,52 @@
+{% extends "front.html.twig" %}
+{% block header %}
+    	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Réserver maintenant</h1>
+					<nav class="d-flex align-items-center">
+						<a href="index.html">Quand vous voulez, ou vous voulez</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+{% endblock %}
+{% block body %}
+    	<!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6" style="margin: 0 auto; width: 50%;">
+					<div class="login_form_inner">
+						<h3>Votre réservation</h3>
+						{{ form_start(formS,{'attr':{'class':'row login_form'}})}}
+							<div class="col-md-12 form-group">
+								{{ form_widget(formS.date,{'attr':{'class':'single-input'}}) }}
+							</div>
+							<div class="col-md-12 form-group">
+								{{ form_widget(formS.duree,{'attr':{'class':'single-input'}}) }}
+							</div>
+							<div class="col-md-12 form-group">
+								{{ form_widget(formS.Emplacement,{'attr':{'class':'single-input'}}) }}
+								<a href="{{path('add_emplacement')}}">Ajouter votre emplacement?</a>
+							</div>
+							<div class="col-md-12 form-group">
+								{{ form_widget(formS.message,{'attr':{'class':'single-input','place-holder':'Votre message'}}) }}
+							</div>
+
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn">Réserver</button>
+								<a href="{{path ('app_list_coach') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
+							</div>
+						{{ form_end(formS) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+{% endblock %}
