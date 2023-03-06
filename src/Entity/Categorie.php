@@ -19,7 +19,7 @@ class Categorie
     #[Assert\Length(min:3,max:20,minMessage:"Le nom de la categorie ne contient pas au min 3 caractères.")]
     private ?string $nom = null;
 
-    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Produit::class)]
+    #[ORM\OneToMany(mappedBy: 'Categorie', targetEntity: Produit::class)]
     private Collection $produits;
 
     public function __construct()

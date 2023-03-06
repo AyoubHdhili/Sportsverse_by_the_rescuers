@@ -4,7 +4,7 @@
 	CV detail
 {% endblock %}
 
-{% block banner_content %}
+{% block body %}
 	<div class="card" style="margin-top: 160px; justify-content: center; align-items: center;">
 		<div class="card-body">
 			<h5 class="card-title">CV list</h5>
@@ -12,6 +12,10 @@
 			<!-- Table with hoverable rows -->
 			<table class="table table-hover">
 
+				<tr>
+					<th scope="col">img</th>
+					<td><img src="{{asset('uploads/cvs/{{ cv.image}}')}}" alt=""></td>
+				</tr>
 				<tr>
 					<th scope="col">Activites</th>
 					{% for act in cv.activites %}
@@ -56,4 +60,3 @@
 		</div>
 	</div>
 {% endblock %}
-{% block body %}{% endblock %}
