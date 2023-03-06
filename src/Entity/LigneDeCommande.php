@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\LigneDeCommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LigneDeCommandeRepository::class)]
 class LigneDeCommande
@@ -20,6 +21,15 @@ class LigneDeCommande
     #[ORM\ManyToOne(inversedBy: 'ligneDeCommandes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Commande $id_commande = null;
+
+    #[ORM\Column]
+    #[Assert\Range(
+        min: 1,
+        max: 10,
+        notInRangeMessage: 'You must be between {{ min }} and {{ max }}',
+    )]
+    #[Assert\NotBlank(message: 'This field should not be blank2')]
+    private ?int $quantite;
 
     public function getId(): ?int
     {
@@ -38,14 +48,26 @@ class LigneDeCommande
         return $this;
     }
 
-    public function getIdCommande(): ?commande
+    public function getIdCommande(): ?Commande
     {
         return $this->id_commande;
     }
 
-    public function setIdCommande(?commande $id_commande): self
+    public function setIdCommande(?Commande $id_commande): self
     {
         $this->id_commande = $id_commande;
+
+        return $this;
+    }
+
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(int $quantite): self
+    {
+        $this->quantite = $quantite;
 
         return $this;
     }

@@ -49,9 +49,6 @@ class Produit
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-
-   
-
     public function __construct()
     {
         $this->ligneDeCommandes = new ArrayCollection();
@@ -144,7 +141,7 @@ class Produit
         return $this;
     }
 
-    public function getCategorie(): ?categorie
+    public function getCategorie(): ?Categorie
     {
         return $this->categorie;
     }
