@@ -17,19 +17,19 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-   
-    #[Assert\NotBlank(message:"nom doit etre pas vide")]
-    #[Assert\Length(min:3,max:20,minMessage:"Le nom du produit ne contient pas au min 3 caractères.")]
+
+    #[Assert\NotBlank(message: "nom doit etre pas vide")]
+    #[Assert\Length(min: 3, max: 20, minMessage: "Le nom du produit ne contient pas au min 3 caractères.")]
     private ?string $nom_produit = null;
 
     #[ORM\Column]
-   
+
     #[Assert\Positive(message: "Prix doit etre positif")]
 
     private ?float $prix_ttc = null;
 
     #[ORM\Column]
-    
+
     #[Assert\Positive(message: "Quantité doit etre positif")]
     private ?int $quantite = null;
 
@@ -38,7 +38,7 @@ class Produit
 
     #[ORM\OneToMany(mappedBy: 'id_produit', targetEntity: LigneDeCommande::class, orphanRemoval: true)]
     private Collection $ligneDeCommandes;
-    
+
     #[ORM\ManyToOne(inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;
@@ -49,12 +49,11 @@ class Produit
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+
     public function __construct()
     {
         $this->ligneDeCommandes = new ArrayCollection();
         $this->reviews = new ArrayCollection();
-        
-        
     }
 
     public function getId(): ?int
@@ -109,7 +108,7 @@ class Produit
 
         return $this;
     }
-   
+
 
     /**
      * @return Collection<int, LigneDeCommande>
@@ -198,15 +197,4 @@ class Produit
 
         return $this;
     }
-
-    
-
-    
-
-    
-    
-
-    
-
-    
 }

@@ -1,6 +1,6 @@
 {% extends 'back.html.twig' %}
 
-{% block title %}Users
+{% block title %}List Activites
 {% endblock %}
 
 {% block navigation %}
@@ -13,11 +13,11 @@
 {% block body %}
 	<div class="card">
 		<div class="card-body">
-			<h5 class="card-title" style="display: flex; position: absolute;">Activites list</h5>
+			<h5 class="card-title" style="display: flex; position: absolute;">List Activites</h5>
 			<button class="justify-content-end" style="display: flex; position: relative; left: 88%; margin-top: 8px; border-radius: 10px;">
 				<a href="{{ path ('admin_add_activite')}}">
 					<i class="bx bxs-plus-square"></i>
-					Add activite</a>
+					Ajouter activite</a>
 			</button>
 			<table class="table table-hover">
 				<thead>
