@@ -32,7 +32,7 @@ class Produit
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Categorie $categorie = null;
+    private ?Categorie $categorie ;
 
     public function __construct()
     {
@@ -122,12 +122,12 @@ class Produit
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
+    public function getCategorie(): ?categorie
     {
         return $this->categorie;
     }
 
-    public function setCategorie(?Categorie $categorie): self
+    public function setCategorie(?categorie $categorie): self
     {
         $this->categorie = $categorie;
 

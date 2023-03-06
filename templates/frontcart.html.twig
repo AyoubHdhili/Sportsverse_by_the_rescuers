@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
-<head>
+
+	<head>
 		<!-- Mobile Specific Meta -->
 		<meta
 		name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,9 +24,9 @@
 		<!-- Site Title -->
 		<title>SportsVerse</title>
 		<!--
-						CSS
-						============================================= -->
-						<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+		                        CSS
+		                        ============================================= -->
+		<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 		<link rel="stylesheet" href="{{asset('css/linearicons.css')}}">
 		<link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 		<link rel="stylesheet" href="{{asset('css/themify-icons.css')}}">
@@ -39,9 +40,11 @@
 		<link rel="stylesheet" href="{{asset('css/main.css')}}">
 	</head>
 
-<body>
 
-   <!-- Start Header Area -->
+	<body>
+
+
+		<!-- Start Header Area -->
 		<header class="header_area sticky-header">
 			<div class="main_menu">
 				<nav class="navbar navbar-expand-lg navbar-light main_box">
@@ -80,9 +83,7 @@
 								<li class="nav-item submenu dropdown">
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coaching</a>
 									<ul class="dropdown-menu">
-										<li class="nav-item">
-											
-										</li>
+										<li class="nav-item"></li>
 										<li class="nav-item">
 											<a class="nav-link" href="single-blog.html">Suivi Seance</a>
 										</li>
@@ -137,287 +138,329 @@
 		</header>
 		<!-- End Header Area -->
 
-    <!-- Start Banner Area -->
-    <section class="banner-area organic-breadcrumb">
-        <div class="container">
-            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-                <div class="col-first">
-                    <h1>Shopping Cart</h1>
-                    <nav class="d-flex align-items-center">
-                        <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="category.html">Cart</a>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Banner Area -->
 
-    <!--================Cart Area =================-->
-    <section class="cart_area">
-        <div class="container">
-            <div class="cart_inner">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Product</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Total</th>
-                            </tr>
-                        </thead>
-					
-						{% if app.flashes('successE') %}
-											<div class='container'>
-													<div id="success-alert" class="alert alert-danger">
-														Desolé la quantité ne doit pas depasser 10 
-																	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
-																	</button>
+		<!-- Start Banner Area -->
+		<section class="banner-area organic-breadcrumb">
+			<div class="container">
+				<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+					<div class="col-first">
+						<h1>Shopping Cart</h1>
+						<nav class="d-flex align-items-center">
+							<a href="index.html">Home<span class="lnr lnr-arrow-right"></span>
+							</a>
+							<a href="category.html">Cart</a>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Banner Area -->
+
+
+		<!--================Cart Area =================-->
+		<section class="cart_area">
+			<div class="container">
+				<div class="cart_inner">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Produit</th>
+									<th scope="col">Prix</th>
+									<th scope="col">Quantité</th>
+									<th scope="col">Totale</th>
+								</tr>
+							</thead>
+
+							{% if app.flashes('successE') %}
+								<div class='container'>
+									<div id="success-alert" class="alert alert-danger">
+										Desolé la quantité ne doit pas depasser 10
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+
+								</div>
+								<script>
+									setTimeout(function () {
+$('#success-alert').fadeOut('slow');
+}, 10000); // 10 seconds
+								</script>
+							{% endif %}
+							{% if app.flashes('successC') %}
+								<div class='container'>
+									<div id="success-alert" class="alert alert-success">
+										Votre commande est en cours de traitement
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+
+								</div>
+								<script>
+									setTimeout(function () {
+$('#success-alert').fadeOut('slow');
+}, 10000); // 10 seconds
+								</script>
+							{% endif %}
+
+							<tbody>
+
+								{% if produits is not empty %}
+									{% for produit in produits %}
+										<tr>
+											<td>
+												<div class="media">
+													<div class="d-flex">
+														<img src="{{asset('img/cart.jpg')}}" alt="">
 													</div>
-																
-											</div>
-												<script>
-													setTimeout(function() {
-														$('#success-alert').fadeOut('slow');
-													}, 10000); // 10 seconds
-												</script>
-						{% endif %}
-						{% if app.flashes('successC') %}
-											<div class='container'>
-													<div id="success-alert" class="alert alert-success">
-														Votre commande est en cours de traitement 
-																	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
-																	</button>
+													<div class="media-body">
+														<p>{{produit.nomProduit}}</p>
 													</div>
-																
-											</div>
-												<script>
-													setTimeout(function() {
-														$('#success-alert').fadeOut('slow');
-													}, 10000); // 10 seconds
-												</script>
-						{% endif %}
-                        <tbody>
-							
-							{% if produits is not empty %}
-								{% for produit in produits %}
+												</div>
+											</td>
+											<td class="product_price">
+												<h5>{{produit.prixTtc}}
+												</h5>
+											</td>
+											<td>
+												<div class="product_count">
+													<form id="myForm" action="{{ path('submitcommande') }}" method="POST">
+														<input type="hidden" name="table[{{ loop.index0 }}][idproduit]" value="{{produit.id }}">
+														<input type="number" name="table[{{ loop.index0 }}][quantity]" class="quantity_input" required>
+													</div>
+												</td>
+											</td>
+											<td class="subtotal"></td>
+										</tr>
+									{% endfor %}
 									<tr>
 										<td>
-											<div class="media">
-												<div class="d-flex">
-													<img src="{{asset('img/cart.jpg')}}" alt="">
-												</div>
-												<div class="media-body">
-													<p>{{produit.nomProduit}}</p>
-												</div>
-											</div>
+											<a class="btn" href="{{ path('viderpanier') }} ">Vider le panier</a>
 										</td>
-										<td class="product_price">
-											<h5>{{produit.prixTtc}} </h5>
-										</td>
+										<td></td>
 										<td>
-											<div class="product_count">
-											<form id="myForm" action="{{ path('submitcommande') }}" method="POST">
-												  <input type="hidden" name="table[{{ loop.index0 }}][idproduit]" value="{{produit.id }}">
-                  								  <input type="number" name="table[{{ loop.index0 }}][quantity]" class="quantity_input" required>
-											</div>
+											<h5>Subtotal</h5>
 										</td>
-										 <td class="subtotal"></td>
+										<td id="total">
+											<h5></h5>
+										</td>
 									</tr>
-									{% endfor %}
+									{% if code is not null  %}
+										<tr>
+											<td></td>
+											<td></td>
+											<td>
+												<h5>Promo</h5>
+											</td>
+											<td>
+												<h5 style="color:green;">{{code.valeur}}
+													%
+												</h5>
+											</td>
+										</tr>
+									{% endif  %}
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td>
 											<button type="submit" class="btn btn-success">Confirmer la commande</button>
-									</form>
-									
-							{% else %}
-								Panier est vide
-							{% endif %}                     
-                            <tr>
-                                <td>
-   									<a class="gray_btn" href="{{ path('viderpanier') }} ">Vider panier</a>
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-                                    <h5>Subtotal</h5>
-                                </td>
-                                <td id="total">
-                                    <h5>  </h5>
-                                </td>
-                            </tr>
-							<!--
-									<tr class="shipping_area">
-										<td>
-
-										</td>
-										<td>
-
-										</td>
-										<td>
-											<h5>Shipping</h5>
-										</td>
-										<td>
-											<div class="shipping_box">
-												<ul class="list">
-													<li><a href="#">Flat Rate: $5.00</a></li>
-													<li><a href="#">Free Shipping</a></li>
-													<li><a href="#">Flat Rate: $10.00</a></li>
-													<li class="active"><a href="#">Local Delivery: $2.00</a></li>
-												</ul>
-												<h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
-												<select class="shipping_select">
-													<option value="1">Bangladesh</option>
-													<option value="2">India</option>
-													<option value="4">Pakistan</option>
-												</select>
-												<select class="shipping_select">
-													<option value="1">Select a State</option>
-													<option value="2">Select a State</option>
-													<option value="4">Select a State</option>
-												</select>
-												<input type="text" placeholder="Postcode/Zipcode">
-												<a class="gray_btn" href="#">Update Details</a>
-											</div>
 										</td>
 									</tr>
-							-->
-                            <tr class="out_button_area">
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-                                    <div class="checkout_btn_inner d-flex align-items-center">
-                                        <a class="gray_btn" href="{{ path('app_commande_index') }} ">Continuer mes achats</a>
-                                        
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--================End Cart Area =================-->
-
-    <!-- start footer Area -->
-			<footer class="footer-area section_gap"> <div class="container">
-				<div class="row">
-					<div class="col-lg-3  col-md-6 col-sm-6">
-						<div class="single-footer-widget">
-							<h6>About Us</h6>
-							<p>
-								SPORTSVERSE est dédiés
-																aux 					sportifs et à tous ceux qui sont
-																						intéressés par les équipements sportifs pour
-																						les faciliter tout type de shopping ou
-																						coaching privée
-							</p>
-						</div>
-					</div>
-					<div class="col-lg-4  col-md-6 col-sm-6">
-						<div class="single-footer-widget">
-							<h6>Newsletter</h6>
-							<p>Stay update with our latest</p>
-							<div class="" id="mc_embed_signup">
-
-								<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
-
-									<div class="d-flex flex-row">
-
-										<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
+								</form>
+							</tbody>
+						</tr>
+						<tr>
+							<form id="myForm" action="{{ path('code') }}" method="POST">
+								<td></td>
+								<td>
+									{% if attribute(app.request.query.all(), 'successCode') is defined and app.request.query.get('successCode') == 0 %}
 
 
-										<button class="click-btn btn btn-default">
-											<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-										</button>
-										<div style="position: absolute; left: -5000px;">
-											<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+										<div style="color:red;">
+											Code promo incorrect
+
 										</div>
 
-										<!-- <div class="col-lg-4 col-md-4">
-																																<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-																															</div>  -->
-									</div>
-									<div class="info"></div>
-								</form>
+									{% endif %}
+									{% if  app.request.get('successCode')==1 or code is not null %}
+
+										<div style="color:green;">
+											Code promo appliqué
+
+										</div>
+
+									{% endif %}
+								</td>
+								<td>
+									<input type="text" name="codepromo" placeholder="Code Promo"></td>
+								<td>
+									<button type="submit" class="btn btn-success">Appliquer</button>
+								</td>
+							</form>
+						</tr>
+
+					{% else %}
+						Votre Panier est vide
+					{% endif %}
+
+					<!--
+					                                    <tr class="shipping_area">
+					                                        <td>
+					
+					
+					                                        </td>
+					                                        <td>
+					
+					
+					                                        </td>
+					                                        <td>
+					                                            <h5>Shipping</h5>
+					                                        </td>
+					                                        <td>
+					                                            <div class="shipping_box">
+					                                                <ul class="list">
+					                                                    <li><a href="#">Flat Rate: $5.00</a></li>
+					                                                    <li><a href="#">Free Shipping</a></li>
+					                                                    <li><a href="#">Flat Rate: $10.00</a></li>
+					                                                    <li class="active"><a href="#">Local Delivery: $2.00</a></li>
+					                                                </ul>
+					                                                <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
+					                                                <select class="shipping_select">
+					                                                    <option value="1">Bangladesh</option>
+					                                                    <option value="2">India</option>
+					                                                    <option value="4">Pakistan</option>
+					                                                </select>
+					                                                <select class="shipping_select">
+					                                                    <option value="1">Select a State</option>
+					                                                    <option value="2">Select a State</option>
+					                                                    <option value="4">Select a State</option>
+					                                                </select>
+					                                                <input type="text" placeholder="Postcode/Zipcode">
+					                                                <a class="gray_btn" href="#">Update Details</a>
+					                                            </div>
+					                                        </td>
+					                                    </tr>
+					                            -->
+					<tr class="out_button_area">
+						<td>
+							<div class="">
+								<a class="gray_btn" href="{{ path('affc') }} ">Consulter Mes commandes</a>
 							</div>
-						</div>
-					</div>
-					<div class="col-lg-3  col-md-6 col-sm-6">
-						<div class="single-footer-widget mail-chimp">
-							<h6 class="mb-20">Instragram Feed</h6>
-							<ul class="instafeed d-flex flex-wrap">
-								    <li><img src="{{asset('img/I1.jpg')}}" alt=""></li>
-									<li><img src="{{asset('img/I2.jpg')}}" alt=""></li>
-									<li><img src="{{asset('img/I3.jpg')}}" alt=""></li>
-									<li><img src="{{asset('img/I4.jpg')}}" alt=""></li>
-									<li><img src="{{asset('img/I5.jpg')}}" alt=""></li>
-									<li><img src="{{asset('img/I6.jpg')}}" alt=""></li>
-									<li><img src="{{asset('img/I7.jpg')}}" alt=""></li>
-									<li><img src="{{asset('img/I8.jpg')}}" alt=""></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-6 col-sm-6">
-						<div class="single-footer-widget">
-							<h6>Follow Us</h6>
-							<p>Nos réseaux sociaux</p>
-							<div class="footer-social d-flex align-items-center">
-								<a href="#"><img src="{{asset('img/social/rsz_facebook.png')}}" alt=""></i>
-							</a>
-							<a href="#"><img src="{{asset('img/social/rsz_twitter.png')}}" alt=""></i>
-						</a>
-						<a href="#"><img src="{{asset('img/social/rsz_instagram.png')}}" alt=""></i>
-					</a>
-					<a href="#"><img src="{{asset('img/social/rsz_gmail.png')}}" alt=""></a>
+						</td>
+						<td></td>
+						<td></td>
+
+						<td>
+							<div class="checkout_btn_inner d-flex align-items-center">
+								<a class="gray_btn" href="{{ path('app_commande_index') }} ">Continuer mes achats</a>
+
+							</div>
+						</td>
+					</tr>
+				</tbody>
+
+			</table>
+			<div class='container'>
+				<div id="success-alert" class="alert alert-warning  ">
+					Appliquer ce code promo du mois Février " FEV20233 "
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
+
 			</div>
 		</div>
 	</body>
-</html>
+</html></div></div></section><!--================End Cart Area =================--><!-- start footer Area --><footer class="footer-area section_gap"><div class="container"><div class="row">
+<div class="col-lg-3  col-md-6 col-sm-6">
+	<div class="single-footer-widget">
+		<h6>About Us</h6>
+		<p>
+			SPORTSVERSE est dédiés
+			                                                                aux                     sportifs et à tous ceux qui sont
+			                                                                                        intéressés par les équipements sportifs pour
+			                                                                                        les faciliter tout type de shopping ou
+			                                                                                        coaching privée
+		</p>
+	</div>
 </div>
-<div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-<p
-	class="footer-text m-0">
-	<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-	Copyright &copy;<script>
-		document.write(new Date().getFullYear());
-	</script>
-	SportsVerse
-	<a href="https://colorlib.com" target="_blank"></a>
-	<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</p></div></div>
-</footer>
-</body>
-    <script src="{{asset('js/vendor/jquery-2.2.4.min.js')}}"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script><script src="{{asset('js/vendor/bootstrap.min.js')}}"></script><script src="{{asset('js/jquery.ajaxchimp.min.js')}}"></script><script src="{{asset('js/jquery.nice-select.min.js')}}"></script><script src="{{asset('js/jquery.sticky.js')}}"></script><script src="{{asset('js/nouislider.min.js')}}"></script><script src="{{asset('js/countdown.js')}}"></script><script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script><script src="{{asset('js/owl.carousel.min.js')}}"></script><!--gmaps Js--><script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script><script src="{{asset('js/gmaps.min.js')}}"></script><script src="{{asset('js/main.js')}}"></script>
-<script>
-  const quantityInputs = document.querySelectorAll('.quantity_input');
-  const subtotalCells = document.querySelectorAll('.subtotal');
-  const totalCell = document.querySelector('#total');
-  
-  quantityInputs.forEach((input, index) => {
-    input.addEventListener('change', () => {
-      const quantity = parseInt(input.value);
-      const price = parseFloat(input.closest('tr').querySelector('.product_price').textContent);
-      const subtotal = quantity * price;
-      subtotalCells[index].textContent = subtotal.toFixed(2);
-      
-      let total = 0;
-      subtotalCells.forEach(cell => {
-        total += parseFloat(cell.textContent);
-      });
-      totalCell.textContent = total.toFixed(3) + "  TND";
-    });
-  });
-</script>
-</html>
+<div class="col-lg-4  col-md-6 col-sm-6">
+	<div class="single-footer-widget">
+		<h6>Newsletter</h6>
+		<p>Stay update with our latest</p>
+		<div class="" id="mc_embed_signup">
+
+
+			<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
+
+
+				<div class="d-flex flex-row">
+
+
+					<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
+
+
+					<button class="click-btn btn btn-default">
+						<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+					</button>
+					<div style="position: absolute; left: -5000px;">
+						<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+					</div>
+
+
+					<!-- <div class="col-lg-4 col-md-4">
+					                                                                                                                                <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
+					                                                                                                                            </div>  -->
+				</div>
+				<div class="info"></div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="col-lg-3  col-md-6 col-sm-6">
+	<div class="single-footer-widget mail-chimp">
+		<h6 class="mb-20">Instragram Feed</h6>
+		<ul class="instafeed d-flex flex-wrap">
+			<li><img src="{{asset('img/I1.jpg')}}" alt=""></li>
+			<li><img src="{{asset('img/I2.jpg')}}" alt=""></li>
+			<li><img src="{{asset('img/I3.jpg')}}" alt=""></li>
+			<li><img src="{{asset('img/I4.jpg')}}" alt=""></li>
+			<li><img src="{{asset('img/I5.jpg')}}" alt=""></li>
+			<li><img src="{{asset('img/I6.jpg')}}" alt=""></li>
+			<li><img src="{{asset('img/I7.jpg')}}" alt=""></li>
+			<li><img src="{{asset('img/I8.jpg')}}" alt=""></li>
+		</ul>
+	</div>
+</div>
+<div class="col-lg-2 col-md-6 col-sm-6">
+	<div class="single-footer-widget">
+		<h6>Follow Us</h6>
+		<p>Nos réseaux sociaux</p>
+		<div class="footer-social d-flex align-items-center">
+			<a href="#"><img src="{{asset('img/social/rsz_facebook.png')}}" alt=""></i>
+		</a>
+		<a href="#"><img src="{{asset('img/social/rsz_twitter.png')}}" alt=""></i>
+	</a>
+	<a href="#"><img src="{{asset('img/social/rsz_instagram.png')}}" alt=""></i>
+</a>
+<a href="#"><img src="{{asset('img/social/rsz_gmail.png')}}" alt=""></a></div></div></div></body></html></div><div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap"><pclass="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->Copyright &copy;<script>document.write(new Date().getFullYear());</script>SportsVerse<a href="https://colorlib.com" target="_blank"></a><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div></div></footer></body><script src="{{asset('js/vendor/jquery-2.2.4.min.js')}}"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script><script src="{{asset('js/vendor/bootstrap.min.js')}}"></script><script src="{{asset('js/jquery.ajaxchimp.min.js')}}"></script><script src="{{asset('js/jquery.nice-select.min.js')}}"></script><script src="{{asset('js/jquery.sticky.js')}}"></script><script src="{{asset('js/nouislider.min.js')}}"></script><script src="{{asset('js/countdown.js')}}"></script><script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script><script src="{{asset('js/owl.carousel.min.js')}}"></script><!--gmaps Js--><script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script><script src="{{asset('js/gmaps.min.js')}}"></script><script src="{{asset('js/main.js')}}"></script><script>const quantityInputs = document.querySelectorAll('.quantity_input');
+const subtotalCells = document.querySelectorAll('.subtotal');
+const totalCell = document.querySelector('#total');
+
+quantityInputs.forEach((input, index) => {
+input.addEventListener('change', () => {
+const quantity = parseInt(input.value);
+const price = parseFloat(input.closest('tr').querySelector('.product_price').textContent);
+const subtotal = quantity * price;
+subtotalCells[index].textContent = subtotal.toFixed(2);
+
+let total = 0;
+subtotalCells.forEach(cell => {
+total += parseFloat(cell.textContent);
+});
+totalCell.textContent = total.toFixed(3) + "  TND";
+});
+});</script> </html>

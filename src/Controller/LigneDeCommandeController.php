@@ -69,7 +69,7 @@ class LigneDeCommandeController extends AbstractController
     #[Route('/{id}', name: 'app_ligne_de_commande_delete', methods: ['POST'])]
     public function delete(Request $request, LigneDeCommande $ligneDeCommande, LigneDeCommandeRepository $ligneDeCommandeRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $ligneDeCommande->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$ligneDeCommande->getId(), $request->request->get('_token'))) {
             $ligneDeCommandeRepository->remove($ligneDeCommande, true);
         }
 
