@@ -1,0 +1,91 @@
+{% extends "front.html.twig" %}
+{% block header %}
+    	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Suivez Vos séances</h1>
+					<nav class="d-flex align-items-center">
+						<a href="index.html">Restez à jour avec l'avancement de vos réservation</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+{% endblock %}
+{% block nav %}
+								<li class="nav-item active">
+									<a class="nav-link" href="{{path('app_coach_seance')}}">Accueil</a>
+								</li>
+								<li class="nav-item submenu dropdown">
+									<a href="{{path('coach_seance')}}" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vos Séances</a>
+								</li>
+							</ul>
+{% endblock %}
+{% block body %}
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nom Coach</th>
+                                <th scope="col">Emplacement</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Durée</th>
+                                <th scope="col">Etat</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for s in seances %}
+                            
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            
+                                        </div>
+                                        <div class="media-body">
+                                        <h5>{{s.coach_id}}</h5>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>{{s.emplacement}}</h5>
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                    <h5>{{s.date|date('d/m/Y H:i:s')}}</h5>
+                                <td>
+                                    <h5>{{s.duree}}</h5>
+                                </td>
+                                <td>
+                                {% if s.etat is null %}
+                                    <h5>En attente</h5>
+                                                                    <td>
+                                    <a class="btn btn-success" href="{{path('accepter_seance',{'id':s.id})}}">Accepter</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" href="">Refuser</a>
+                                </td>
+                                    {% else %}
+                                    <h5>{{s.etat}}</h5>
+                                    <td></td>
+                                    <td></td>
+                                {% endif %}
+                                </td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
