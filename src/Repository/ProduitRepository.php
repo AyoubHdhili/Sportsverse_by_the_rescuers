@@ -38,45 +38,35 @@ class ProduitRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function findAllWithFilters($filters)
-    {
+ 
+    public function getPaginatedProduits( $page, $limit,$filters = null){
+        $query = $this->createQueryBuilder('p');
+            
 
-        $qb = $this->createQueryBuilder('p');
-
-        foreach($filters as $categorie) {
-            $qb->orWhere('p.categorie_list LIKE :categorie_'.$categorie)->setParameter('categorie_'.$categorie, '%'.$categorie.'%');
+        // On filtre les données
+        if($filters != null){
+            $query->andWhere('p.categories IN(:cats)')
+                ->setParameter(':cats', array_values($filters));
         }
 
-        // $colors = implode(", ", $filters);
-        // $qb->where('p.color_list IN (:colors)')->setParameter('colors', $colors);
-
-
-        return $qb->getQuery()->getResult();
+        $query->setFirstResult(($page * $limit) - $limit)
+            ->setMaxResults($limit);
+        return $query->getQuery()->getResult();
     }
 
-    public function findAllPerCategoryWithFilters($filters, $categorieId)
-    {
-
-        $qb = $this->createQueryBuilder('p');
-
-       
-
-        foreach($filters as $nomc) {
-            $qb->orWhere('p.nom_list LIKE :nom_'.$nomc)->setParameter('nom_'.$nomc, '%'.$nomc.'%');
+    public function getTotalProduits($filters = null){
+        $query = $this->createQueryBuilder('p')
+            ->select('COUNT(p)');
+            
+        // On filtre les données
+        if($filters != null){
+            $query->andWhere('p.categories IN(:cats)')
+                ->setParameter(':cats', array_values($filters));
         }
 
-        $qb->andWhere('p.categorie = :categorieId')
-            ->setParameter('categorieId' , $categorieId);
-
-        return $qb->getQuery()->getResult();
+        return $query->getQuery()->getSingleScalarResult();
     }
-    public function findAllByName($filterName) {
-        $qb = $this->createQueryBuilder('p');
-        $qb->andWhere('p.nom LIKE :nom')
-            ->setParameter('nom','%'.$filterName.'%');
-
-        return $qb->getQuery()->getResult();
-    }
+    
 //    /**
 //     * @return Produit[] Returns an array of Produit objects
 //     */
@@ -102,6 +92,7 @@ class ProduitRepository extends ServiceEntityRepository
 //        ;
 //    }
 }
+
 
 
 

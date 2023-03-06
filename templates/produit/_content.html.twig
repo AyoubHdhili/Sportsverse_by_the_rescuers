@@ -1,0 +1,53 @@
+{% extends 'front.html.twig' %}
+
+
+{% for produit in pagination  %}
+            <div class="col-lg-4 col-md-6">
+               
+                <div class="single-product">
+                   
+                    <img class=".img-fluid " id="img-card" src="{{ asset('uploads/images/'~produit.image)}}" >
+                    <div class="product-details">
+                        <h6 >{{ produit.nomProduit }}</h6 >
+                        <div class="price">
+                            <h6>{{ produit.prixTtc }}</h6>
+                            
+                        </div>
+                        <div class="prd-bottom">
+
+                            <a href="" class="social-info">
+                                <span ><i class="fa-sharp fa-solid fa-bag-shopping"></i></span>
+                                <p class="hover-text">add to bag</p>
+                            </a>
+                            
+                            
+                            <a href="{{ path('product_show', {  id: produit.id }) }}" class="social-info">
+                                <span ><i class="fa-sharp fa-solid fa-arrows-up-down-left-right"></i></span>
+                                <p class="hover-text">view more</p>
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+                  {% endfor %}
+                 
+                
+
+    {# On crée des variables personnalisées #}
+    {% set queryParams = app.request.query.all %}
+    {% set queryString = queryParams|filter((v, k) => k != "page" and k != "ajax")|url_encode %}
+
+
+    <div class="filter-bar d-flex flex-wrap align-items-center">
+        <div class="sorting mr-auto">
+            <div class="nice-select" tabindex="0"><span class="current">Show 12</span><ul class="list"><li data-value="1" class="option selected">Show 6</li><li data-value="1" class="option">Show 6</li><li data-value="1" class="option">Show 6</li></ul></div>
+        </div>
+       
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    {% endblock %}

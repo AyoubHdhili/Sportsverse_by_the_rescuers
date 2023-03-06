@@ -1,6 +1,6 @@
 {% extends 'front.html.twig' %}
 
-
+{% set queryParams = app.request.query.all %}
 
 {%block header1%}
 <script src="https://kit.fontawesome.com/bd60395c82.js" crossorigin="anonymous"></script>
@@ -94,24 +94,19 @@
             <div class="sidebar-categories">
                 <div class="head">Browse Categories</div>
                 <ul class="main-categories">
-                    <li class="main-nav-list"><a data-toggle="collapse" href="#Natation" aria-expanded="false" aria-controls="Natation"><span class="lnr lnr-arrow-right"></span>Natation<span class="number">(53)</span></a>
-                        
-                    </li>
+                    <form id="Filters">
+                        {%for categorie in categories%}
+                        {% if queryParams is not empty and queryParams.categories is defined %}
+                        {% set checked = (categorie.id in queryParams.categories) ? "checked" : "" %}
+                    {% else %}
+                        {% set checked = "" %}
+                    {% endif %}
 
                     
-                    
-                    
-                    
-                    
-                    
-                    <li class="main-nav-list"><a data-toggle="collapse" href="#Box" aria-expanded="false" aria-controls="Box"><span class="lnr lnr-arrow-right"></span>Box<span class="number">(29)</span></a>
-                        
-                    </li>
-                    <li class="main-nav-list"><a href="#">Musculation<span class="number">(29)</span></a></li>
-                    
-                    <li class="main-nav-list"><a class="border-bottom-0" data-toggle="collapse" href="#babyCare" aria-expanded="false" aria-controls="babyCare"><span class="lnr lnr-arrow-right"></span>Dance<span class="number">(48)</span></a>
-                        
-                    </li>
+                         <p><input class="pixel-radio" type="radio" name="categorie[]" id="categorie{{categorie.id}}" value="{{categorie.id}}"><label for="cat{{categorie.id}}">{{categorie.nom}}</p>
+                         {%endfor%}
+                         
+                        </form>
                 </ul>
             </div>
             <div class="sidebar-filter mt-50">
@@ -175,25 +170,20 @@
                         <option value="1">Show 12</option>
                     </select><div class="nice-select" tabindex="0"><span class="current">Show 12</span><ul class="list"><li data-value="1" class="option selected">Show 12</li><li data-value="1" class="option">Show 12</li><li data-value="1" class="option">Show 12</li></ul></div>
                 </div>
-                <div class="pagination">
-                    <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                    <a href="#">6</a>
-                    <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                </div>
+                
+                    {{ knp_pagination_render(pagination) }}
+                    
+                
             </div>
             <!-- End Filter Bar -->
             <!-- Start Best Seller -->
             <section class="lattest-product-area pb-40 category-list">
                 <div class="row">
                   
-                   
+                    
                     
                     <!-- single product -->
-                    {% for produit in produits %}
+                    {% for produit in pagination  %}
             <div class="col-lg-4 col-md-6">
                
                 <div class="single-product">
@@ -213,7 +203,7 @@
                             </a>
                             
                             
-                            <a href="{{ path('product_show', { slug : produit.slug, id: produit.id }) }}" class="social-info">
+                            <a href="{{ path('product_show', {  id: produit.id }) }}" class="social-info">
                                 <span ><i class="fa-sharp fa-solid fa-arrows-up-down-left-right"></i></span>
                                 <p class="hover-text">view more</p>
                             </a>
@@ -227,27 +217,17 @@
                 <td colspan="6">no records found</td>
             </tr>
                   {% endfor %}
+                 
                 </div>
             </section>
             <!-- End Best Seller -->
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center">
                 <div class="sorting mr-auto">
-                    <select style="display: none;">
-                        <option value="1">Show 12</option>
-                        <option value="1">Show 12</option>
-                        <option value="1">Show 12</option>
-                    </select><div class="nice-select" tabindex="0"><span class="current">Show 12</span><ul class="list"><li data-value="1" class="option selected">Show 12</li><li data-value="1" class="option">Show 12</li><li data-value="1" class="option">Show 12</li></ul></div>
+                    <div class="nice-select" tabindex="0"><span class="current">Show 12</span><ul class="list"><li data-value="1" class="option selected">Show 6</li><li data-value="1" class="option">Show 6</li><li data-value="1" class="option">Show 6</li></ul></div>
                 </div>
-                <div class="pagination">
-                    <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                    <a href="#">6</a>
-                    <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                </div>
+               
+                {{ knp_pagination_render(pagination) }}
             </div>
             <!-- End Filter Bar -->
         </div>
@@ -256,6 +236,9 @@
 
 
 
-
+{%block javascripts %}
+<script src="{{asset('js/filters.js')}}"></script>
+{%endblock%}
 
 {% endblock %}
+
