@@ -23,18 +23,22 @@ class CvType extends AbstractType
             ->add('certification')
             ->add('description')
             ->add('tarif')
-            ->add('image', FileType::class, [
-                'label' => 'Votre photo de profile (Des fichier images seulement)',
-                'required' => false,
-                'mapped' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => ['image/gif ', 'image/jpg', 'image/jpeg',],
-                        'mimeTypesMessage' => 'Please upload a valid Image document',
-                    ])
-                ],
-            ])
+            // ->add('image', FileType::class, [
+            //     'label' => 'Votre photo de profile (Des fichier images seulement)',
+            //     'required' => false,
+            //     'mapped' => false,
+            //     'constraints' => [
+            //         new File([
+            //             'maxSize' => '1024k',
+            //             'image/png',
+            //             'mimeTypes' => [
+            //                 'image/gif ', 'image/jpg',
+            //                 'image/jpeg', 'image/png',
+            //             ],
+            //             'mimeTypesMessage' => 'Please upload a valid Image document',
+            //         ])
+            //     ],
+            // ])
             ->add(
                 'activites',
                 EntityType::class,
@@ -70,6 +74,12 @@ class CvType extends AbstractType
                 [
                     'class' => User::class,
                     'choice_label' => 'Prenom',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->orderBy('u.nom', 'ASC')
+                            ->where('u.roles LIKE :coach')
+                            ->setParameter('coach', 'ROLE_COACH');
+                    },
                 ]
             );
     }

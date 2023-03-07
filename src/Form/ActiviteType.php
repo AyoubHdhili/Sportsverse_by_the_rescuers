@@ -36,6 +36,7 @@ class ActiviteType extends AbstractType
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.user_id', 'ASC');
                     },
+
                     'placeholder' => 'Choisir les Coachs',
                 ]
             );

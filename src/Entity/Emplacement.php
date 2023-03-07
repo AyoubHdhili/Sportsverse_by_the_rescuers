@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\EmplacementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EmplacementRepository::class)]
@@ -23,11 +26,19 @@ class Emplacement
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"S'il vous plait Mettez une adresse")]
     private ?string $adresse = null;
 
-    #[ORM\OneToOne(inversedBy: 'emplacement', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?seance $seance = null;
+    #[ORM\OneToMany(mappedBy: 'Emplacement', targetEntity: Seance::class)]
+    private Collection $seances;
+
+    #[ORM\Column(length: 255)]
+    private ?string $localite = null;
+
+    public function __construct()
+    {
+        $this->seances = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -82,15 +93,50 @@ class Emplacement
         return $this;
     }
 
-    public function getSeance(): ?seance
+    /**
+     * @return Collection<int, Seance>
+     */
+    public function getSeances(): Collection
     {
-        return $this->seance;
+        return $this->seances;
     }
 
-    public function setSeance(seance $seance): self
+    public function addSeance(Seance $seance): self
     {
-        $this->seance = $seance;
+        if (!$this->seances->contains($seance)) {
+            $this->seances->add($seance);
+            $seance->setEmplacement($this);
+        }
 
         return $this;
     }
+
+    public function removeSeance(Seance $seance): self
+    {
+        if ($this->seances->removeElement($seance)) {
+            // set the owning side to null (unless already changed)
+            if ($seance->getEmplacement() === $this) {
+                $seance->setEmplacement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLocalite(): ?string
+    {
+        return $this->localite;
+    }
+
+    public function setLocalite(string $localite): self
+    {
+        $this->localite = $localite;
+
+        return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->governorat.(' ').$this->delegation.(' ').$this->adresse;
+    }
+
 }

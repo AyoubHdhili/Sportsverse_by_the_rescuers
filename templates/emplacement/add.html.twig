@@ -1,0 +1,54 @@
+{% extends "front.html.twig" %}
+{% block header %}
+    	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Réserver maintenat</h1>
+					<nav class="d-flex align-items-center">
+						<a href="index.html">Ajouter un emplacement</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+{% endblock %}
+{% block body %}
+    	<!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6" style="margin: 0 auto; width: 50%;">
+					<div class="login_form_inner">
+						<h3>Spécifiez votre emplacement</h3>
+						{{ form_start(formE,{'attr':{'class':'row login_form','novalidate' : 'novalidate'}})}}
+							<div class="col-md-12 form-group">
+								{{ form_widget(formE.governorat,{'attr':{'class':'single-input','data-placeholder': 'Select governorat...'}}) }}
+							</div>
+							<div class="col-md-12 form-group">
+								{{ form_widget(formE.delegation,{'attr':{'class':'single-input'}}) }}
+							</div>
+
+							<div class="col-md-12 form-group">
+								{{ form_widget(formE.Localite,{'attr':{'class':'single-input'}}) }}
+							</div>
+							<div class="col-md-12 form-group">
+								{{ form_widget(formE.type,{'attr':{'class':'single-input'}}) }}
+							</div>
+							<div class="col-md-12 form-group">
+								{{ form_widget(formE.adresse,{'attr':{'class':'single-input','placeholder':'Entrer adresse exemple : 17 rue de bulgarie'}}) }}
+								{{ form_errors(formE.adresse) }}
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn">Ajouter</button>
+							</div>
+						{{ form_end(formE) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+{% endblock %}

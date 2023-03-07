@@ -23,8 +23,8 @@
 		<!-- Site Title -->
 		<title>SportsVerse</title>
 		<!--
-														CSS
-														============================================= -->
+																CSS
+																============================================= -->
 		<link rel="stylesheet" href="https://kit.fontawesome.com/bd60395c82.css" crossorigin="anonymous">
 		<link rel="stylesheet" href="{{asset('css/linearicons.css')}}">
 		<link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
@@ -40,93 +40,104 @@
 	</head>
 
 	<body>
-		<!-- Start Header Area -->
-		{% block header1 %}
-			<div id="undefined-sticky-wrapper" class="sticky-wrapper" style="height: 80px;">
-				<header class="header_area sticky-header" style="">
+		{% block top %}
+			<!-- Start Header Area -->
+			{%block header1%}
+				<div id="undefined-sticky-wrapper" class="sticky-wrapper" style="height: 80px;">
+					<header class="header_area sticky-header" style="">
 
-					<div class="main_menu">
-						<nav class="navbar navbar-expand-lg navbar-light main_box">
-							<div
-								class="container">
-								<!-- Brand and toggle get grouped for better mobile display -->
-								<a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
-								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-									<span class="icon-bar"></span>
-									<span class="icon-bar"></span>
-									<span class="icon-bar"></span>
-								</button>
-								<!-- Collect the nav links, forms, and other content for toggling -->
-								<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-									<ul class="nav navbar-nav menu_nav ml-auto">
-										<li class="nav-item">
-											<a class="nav-link" href="index.html">Home</a>
-										</li>
-										<li class="nav-item submenu dropdown active">
-											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
-											<ul class="dropdown-menu">
-												<li class="nav-item active">
-													<a class="nav-link" href="category.html">Shop Category</a>
-												</li>
-												<li class="nav-item">
-													<a class="nav-link" href="single-product.html">Product Details</a>
-												</li>
-												<li class="nav-item">
-													<a class="nav-link" href="checkout.html">Product Checkout</a>
-												</li>
-												<li class="nav-item">
-													<a class="nav-link" href="cart.html">Shopping Cart</a>
-												</li>
-												<li class="nav-item">
-													<a class="nav-link" href="confirmation.html">Confirmation</a>
-												</li>
-											</ul>
-										</li>
-										<li class="nav-item submenu dropdown">
-											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-											<ul class="dropdown-menu">
-												<li class="nav-item">
-													<a class="nav-link" href="blog.html">Blog</a>
-												</li>
-												<li class="nav-item">
-													<a class="nav-link" href="single-blog.html">Blog Details</a>
-												</li>
-											</ul>
-										</li>
-										<li class="nav-item submenu dropdown">
-											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-											<ul class="dropdown-menu">
-												<li class="nav-item">
-													<a class="nav-link" href="login.html">Login</a>
-												</li>
-												<li class="nav-item">
-													<a class="nav-link" href="tracking.html">Tracking</a>
-												</li>
-												<li class="nav-item">
-													<a class="nav-link" href="elements.html">Elements</a>
-												</li>
-											</ul>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="contact.html">Contact</a>
-										</li>
-									</ul>
-									<ul class="nav navbar-nav navbar-right">
-										<li class="nav-item">
-											<a href="#" class="cart">
-												<span class="ti-bag"></span>
-											</a>
-										</li>
-										<li class="nav-item">
-											<button class="search">
-												<span class="lnr lnr-magnifier" id="search"></span>
-											</button>
-										</li>
-									</ul>
+						<div class="main_menu">
+							<nav class="navbar navbar-expand-lg navbar-light main_box">
+								<div
+									class="container">
+									<!-- Brand and toggle get grouped for better mobile display -->
+									<a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+									<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+									<!-- Collect the nav links, forms, and other content for toggling -->
+									<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+										<ul class="nav navbar-nav menu_nav ml-auto">
+											<li class="nav-item">
+												<a class="nav-link" href="index.html">Home</a>
+											</li>
+											<li class="nav-item submenu dropdown active">
+												<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
+												<ul class="dropdown-menu">
+													<li class="nav-item active">
+														<a class="nav-link" href="category.html">Shop Category</a>
+													</li>
+													<li class="nav-item">
+														<a class="nav-link" href="single-product.html">Product Details</a>
+													</li>
+													<li class="nav-item">
+														<a class="nav-link" href="checkout.html">Product Checkout</a>
+													</li>
+													<li class="nav-item">
+														<a class="nav-link" href="cart.html">Shopping Cart</a>
+													</li>
+													<li class="nav-item">
+														<a class="nav-link" href="confirmation.html">Confirmation</a>
+													</li>
+												</ul>
+											</li>
+											<li class="nav-item submenu dropdown">
+												<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
+												<ul class="dropdown-menu">
+													<li class="nav-item">
+														<a class="nav-link" href="blog.html">Blog</a>
+													</li>
+													<li class="nav-item">
+														<a class="nav-link" href="single-blog.html">Blog Details</a>
+													</li>
+												</ul>
+											</li>
+											<li class="nav-item submenu dropdown">
+												<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
+												<ul class="dropdown-menu">
+													<li class="nav-item">
+														<a class="nav-link" href="login.html">Login</a>
+													</li>
+													<li class="nav-item">
+														<a class="nav-link" href="tracking.html">Tracking</a>
+													</li>
+													<li class="nav-item">
+														<a class="nav-link" href="elements.html">Elements</a>
+													</li>
+												</ul>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="contact.html">Contact</a>
+											</li>
+										</ul>
+										<ul class="nav navbar-nav navbar-right">
+											<li class="nav-item">
+												<a href="#" class="cart">
+													<span class="ti-bag"></span>
+												</a>
+											</li>
+											<li class="nav-item">
+												<button class="search">
+													<span class="lnr lnr-magnifier" id="search"></span>
+												</button>
+											</li>
+										</ul>
+									</div>
+								</nav>
+							</div>
+							<div class="search_input" id="search_input_box">
+								<div class="container">
+									<form class="d-flex justify-content-between">
+										<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+										<button type="submit" class="btn"></button>
+										<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+									</form>
 								</div>
 							</nav>
 						</div>
-						<div class="search_input" id="search_input_box">
+						<div class="search_input" id="search_input_box" style="display: none;">
 							<div class="container">
 								<form class="d-flex justify-content-between">
 									<input type="text" class="form-control" id="search_input" placeholder="Search Here">
@@ -134,21 +145,12 @@
 									<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 								</form>
 							</div>
-						</nav>
-					</div>
-					<div class="search_input" id="search_input_box" style="display: none;">
-						<div class="container">
-							<form class="d-flex justify-content-between">
-								<input type="text" class="form-control" id="search_input" placeholder="Search Here">
-								<button type="submit" class="btn"></button>
-								<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-							</form>
 						</div>
-					</div>
-				</header>
-			</div>
+					</header>
+				</div>
+			{%endblock %}
+			<!-- End Header Area -->
 		{% endblock %}
-		<!-- End Header Area -->
 		<!-- start banner Area -->
 
 		<section class="banner-area">
@@ -169,7 +171,6 @@
 															<br>
 															augumente,<br>Les difficulté diminue</h1>
 													{% endblock %}
-
 													<div class="col-lg-7">
 														<div class="banner-img">
 															<img class="img-fluid">
@@ -181,15 +182,15 @@
 													</div>
 												</div>
 											</div>
-										</div>
-									{% endblock %}
+										{% endblock %}
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				{% endblock %}
-			</div>
-		{% endblock %}
+					{% endblock %}
+				</div>
+			{% endblock %}
+		</body>
 	</body>
 </html></section><!-- End banner Area -->{% block body %}
 <!-- start features Area -->
@@ -334,7 +335,7 @@
 							<img class="img-fluid" src="img/product/p1.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -367,7 +368,7 @@
 							<img class="img-fluid" src="img/product/p2.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -400,7 +401,7 @@
 							<img class="img-fluid" src="img/product/p3.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -432,7 +433,7 @@
 							<img class="img-fluid" src="img/product/p4.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -465,7 +466,7 @@
 							<img class="img-fluid" src="img/product/p5.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -498,7 +499,7 @@
 							<img class="img-fluid" src="img/product/p6.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -531,7 +532,7 @@
 							<img class="img-fluid" src="img/product/p7.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -564,7 +565,7 @@
 							<img class="img-fluid" src="img/product/p8.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -615,7 +616,7 @@
 							<img class="img-fluid" src="img/product/p6.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -648,7 +649,7 @@
 							<img class="img-fluid" src="img/product/p8.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -681,7 +682,7 @@
 							<img class="img-fluid" src="img/product/p3.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -714,7 +715,7 @@
 							<img class="img-fluid" src="img/product/p5.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -747,7 +748,7 @@
 							<img class="img-fluid" src="img/product/p1.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -780,7 +781,7 @@
 							<img class="img-fluid" src="img/product/p4.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -813,7 +814,7 @@
 							<img class="img-fluid" src="img/product/p1.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -846,7 +847,7 @@
 							<img class="img-fluid" src="img/product/p8.jpg" alt="">
 							<div class="product-details">
 								<h6>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																		for Sports person</h6>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																											for Sports person</h6>
 								<div class="price">
 									<h6>$150.00</h6>
 									<h6 class="l-through">$210.00</h6>
@@ -924,7 +925,7 @@
 								<h6 class="l-through">$210.00</h6>
 							</div>
 							<h4>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																													for Sports person</h4>
+																																																																																																																																																																																																																																																																																																																																																																																																																																					for Sports person</h4>
 							<div class="add-bag d-flex align-items-center justify-content-center">
 								<a class="add-btn" href="">
 									<span class="ti-bag"></span>
@@ -942,7 +943,7 @@
 								<h6 class="l-through">$210.00</h6>
 							</div>
 							<h4>addidas New Hammer sole
-																																																																																																																																																																																																																																																																																																																																																																																																																													for Sports person</h4>
+																																																																																																																																																																																																																																																																																																																																																																																																																																					for Sports person</h4>
 							<div class="add-bag d-flex align-items-center justify-content-center">
 								<a class="add-btn" href="">
 									<span class="ti-bag"></span>
@@ -988,10 +989,10 @@
 					<h6>About Us</h6>
 					<p>
 						SPORTSVERSE est dédiés
-																																																																																																																																																																																																																																																																																																																								aux 					sportifs et à tous ceux qui sont
-																																																																																																																																																																																																																																																																																																																														intéressés par les équipements sportifs pour
-																																																																																																																																																																																																																																																																																																																														les faciliter tout type de shopping ou
-																																																																																																																																																																																																																																																																																																																														coaching privée
+																																																																																																																																																																																																																																																																																													aux 					sportifs et à tous ceux qui sont
+																																																																																																																																																																																																																																																																																																			intéressés par les équipements sportifs pour
+																																																																																																																																																																																																																																																																																																			les faciliter tout type de shopping ou
+																																																																																																																																																																																																																																																																																																			coaching privée
 					</p>
 				</div>
 			</div>
@@ -1016,8 +1017,8 @@
 								</div>
 
 								<!-- <div class="col-lg-4 col-md-4">
-																																																																																																																																																																																																																																																																																																																																																																																																														<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-																																																																																																																																																																																																																																																																																																																																																																																																													</div>  -->
+																																																																																																																																																																																																																																																																																																																																																																																																																						<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
+																																																																																																																																																																																																																																																																																																																																																																																																																					</div>  -->
 							</div>
 							<div class="info"></div>
 						</form>
