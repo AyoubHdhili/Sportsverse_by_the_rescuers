@@ -2,9 +2,20 @@
 
 {% block title %}Users
 {% endblock %}
+{% block container %}
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Activites list</h1>
+				</div>
+			</div>
+		</div>
+	</section>
 
-{% block banner_content %}
-	<div class="card" style="margin-top: 160px; justify-content: center; align-items: center;">
+{% endblock %}
+{% block body %}
+	<div class="card" style="justify-content: center; align-items: center;">
 		<div class="card-body">
 			<h5 class="card-title">Activites list</h5>
 
@@ -39,4 +50,3 @@
 		</div>
 	</div>
 {% endblock %}
-{% block body %}{% endblock %}
