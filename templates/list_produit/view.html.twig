@@ -313,6 +313,35 @@
 
 						</div>
 					</div>
+					<div class="col-lg-6" id="reviews">
+	
+						<div class="card border-light mb-3">
+							
+							<div class="card-body">
+								{% for review in produit.reviews %}
+									<div class="review">
+										<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+										
+										<meta itemprop="datePublished" content="01-01-2016">{{ review.datecreation|date('d/m/Y') }}
+										
+										{% for i in 1..5 %}
+											{% if i <=review.nbre %}
+												<i class="fa fa-star"></i>
+											{% else %}
+												<i class="fa fa-star-o" aria-hidden="true"></i>
+											{% endif %}
+										{% endfor %}
+										<p class="mb-0">{{ review.user.nom }}</p>
+										<p class="blockquote">
+										<p class="mb-0">{{ review.comment }}</p>
+										</p>
+										<hr>
+									</div>
+								{% endfor %}
+								
+							</div>
+						</div>
+					</div>
 					<!-- Reviews -->
 					
 					<div class="col-lg-6">
@@ -331,31 +360,30 @@
                                 {% endfor %}
 							<p>Outstanding</p>
 							{% endfor %}
-							<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+
+							
+		                    {{ form_start(formReview) }}
+					
+								
 								<div class="col-md-12">
-									<div class="form-group">
-										<input type="text" class="form-control" id="name" name="name" placeholder="Your Full name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Full name'">
-									</div>
+									{{ form_label(formReview.nbre, null, {
+										'label_attr': {'class': ''}
+										}) }}
+									{{ form_widget(formReview.nbre, {'attr': {'class': 'form-control'}}) }}
 								</div>
+								
 								<div class="col-md-12">
-									<div class="form-group">
-										<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
-									</div>
+									{{ form_label(formReview.comment, null, {
+										'label_attr': {'class': ''}
+										}) }}
+									{{ form_widget(formReview.comment, {'attr': {'class': 'form-control'}}) }}
 								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<input type="text" class="form-control" id="number" name="number" placeholder="Phone Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<textarea class="form-control" name="message" id="message" rows="1" placeholder="Review" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea>
-									</div>
-								</div>
+								
 								<div class="col-md-12 text-right">
-									<button type="submit" value="submit" class="primary-btn">Submit Now</button>
+									<button class="primary-btn" formnovalidate>Envoyer</button>
 								</div>
-							</form>
+							
+							{{ form_end(formReview) }}
 						</div>
 					</div>
 					
@@ -367,54 +395,7 @@
 
 <!-- Start related-product Area -->
 <!-- Reviews -->
-<div class="col-12" id="reviews">
-	
-	<div class="card border-light mb-3">
-		<div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-comment"></i> Avis</div>
-		<div class="card-body">
-			{% for review in produit.reviews %}
-				<div class="review">
-					<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-					
-					<meta itemprop="datePublished" content="01-01-2016">{{ review.datecreation|date('d/m/Y') }}
-					
-					{% for i in 1..5 %}
-						{% if i <=review.nbre %}
-							<i class="fa fa-star"></i>
-						{% else %}
-							<i class="fa fa-star-o" aria-hidden="true"></i>
-						{% endif %}
-					{% endfor %}
-				  {{review.user.nom}}
-					<p class="blockquote">
-					<p class="mb-0">{{ review.comment }}</p>
-					</p>
-					<hr>
-				</div>
-			{% endfor %}
-			{{ form_start(formReview) }}
-                            
-			<div class="form-group">
-				{{ form_label(formReview.nbre, null, {
-					'label_attr': {'class': ''}
-					}) }}
-				{{ form_widget(formReview.nbre, {'attr': {'class': 'form-control'}}) }}
-			</div>
-				
-			<div class="form-group">
-				{{ form_label(formReview.comment, null, {
-					'label_attr': {'class': ''}
-					}) }}
-				{{ form_widget(formReview.comment, {'attr': {'class': 'form-control'}}) }}
-			</div>
-			   
 
-			<button class="btn btn-primary" formnovalidate>Envoyer</button>
-		{{ form_end(formReview) }}
-			
-		</div>
-	</div>
-</div>
 
 <!-- End related-product Area -->
 
