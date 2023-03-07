@@ -22,103 +22,97 @@ class SeanceController extends AbstractController
     private $session;
     public function __construct(Security $security, SessionInterface $session)
     {
-        $this->security=$security;
-        $this->session=$session;
+        $this->security = $security;
+        $this->session = $session;
     }
     #[Route('/', name: 'app_seance')]
-    public function index(ManagerRegistry $doctrine,UserRepository $userRepository,EmplacementRepository $emplacementRepository): Response
+    public function index(ManagerRegistry $doctrine, UserRepository $userRepository, EmplacementRepository $emplacementRepository): Response
     {
-        $user=$this->security->getUser();
+        $user = $this->security->getUser();
         if (is_null($user)) {
             return $this->redirectToRoute('app_login');
-        }else{
-        $username=$user->getUsername();
-        $this->session->set('username',$username);
-        $seances=$doctrine->getManager()->getRepository(Seance::class)->findSeanceByAdresse($username);
+        } else {
+            $username = $user->getUsername();
+            $this->session->set('username', $username);
+            $seances = $doctrine->getManager()->getRepository(Seance::class)->findSeanceByAdresse($username);
         }
         return $this->render('seance/index.html.twig', [
             'seances' => $seances,
         ]);
     }
     #[Route('/coach_seance', name: 'coach_seance')]
-    public function CoachSeance(ManagerRegistry $doctrine,UserRepository $userRepository): Response
+    public function CoachSeance(ManagerRegistry $doctrine, UserRepository $userRepository): Response
     {
-        $user=$this->security->getUser();
-        if(is_null($user)){
+        $user = $this->security->getUser();
+        if (is_null($user)) {
             return $this->redirectToRoute('app_login');
-        }
-        else{
-<<<<<<< HEAD
-        $username=$user->getUsername();
-        $this->session->set('username',$username);
-        $seances=$doctrine->getManager()->getRepository(Seance::class)->findSeanceByAdresse($username);}
-        return $this->render('coach_seance/list.html.twig', [
-            'seances' => $seances,
-=======
-            $username=$user->getUsername();
-            $coach=$doctrine->getManager()->getRepository(User::class)->findOneByEmail($username);
-            $this->session->set('username',$username);
-            $seances=$doctrine->getManager()->getRepository(Seance::class)->findSeanceCoach($coach->getId());
-            $clients=[];
-            for ($i=0; $i < count($clients) ; $i++) { 
-                    $clients[$i]=$doctrine->getManager()->getRepository(User::class)->findOneByEmail($seances[$i]->getAdresse_Client());
+        } else {
+
+            $username = $user->getUsername();
+            $coach = $doctrine->getManager()->getRepository(User::class)->findOneByEmail($username);
+            $this->session->set('username', $username);
+            $seances = $doctrine->getManager()->getRepository(Seance::class)->findSeanceCoach($coach->getId());
+            $clients = [];
+            for ($i = 0; $i < count($clients); $i++) {
+                $clients[$i] = $doctrine->getManager()->getRepository(User::class)->findOneByEmail($seances[$i]->getAdresse_Client());
             }
         }
         return $this->render('coach_seance/list.html.twig', [
             'seances' => $seances,
-            'client'=>$clients,
->>>>>>> 341ef0ed48bada70d3c006bdb755708c80b67bac
+            'client' => $clients,
         ]);
     }
-    #[Route('/add/{id}',name:'add_seance')]
-    public function addSeance(Request $request, ManagerRegistry $doctrine,UserRepository $userRepository,$id): Response
+    #[Route('/add/{id}', name: 'add_seance')]
+    public function addSeance(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, $id): Response
     {
-        $user=$this->security->getUser();
+        $user = $this->security->getUser();
         if (is_null($user)) {
             return $this->redirectToRoute('app_login');
-        }else{
-        $username=$user->getUsername();
-        $this->session->set('username',$username);
-        $seance=new Seance();
-        $form=$this->createForm(SeanceType::class,$seance);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $seance->setAdresse_Client($username);
-            $seance->setCoach_Id($userRepository->find($id));
-            $em=$doctrine->getManager();
-            $em->persist($seance);
-            $em->flush();
-            return $this->redirectToRoute('app_seance');
-        }}
-        return $this->render('seance/add.html.twig',['formS' => $form->createView(),]);
+        } else {
+            $username = $user->getUsername();
+            $this->session->set('username', $username);
+            $seance = new Seance();
+            $form = $this->createForm(SeanceType::class, $seance);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $seance->setAdresse_Client($username);
+                $seance->setCoach_Id($userRepository->find($id));
+                $em = $doctrine->getManager();
+                $em->persist($seance);
+                $em->flush();
+                return $this->redirectToRoute('app_seance');
+            }
+        }
+        return $this->render('seance/add.html.twig', ['formS' => $form->createView(),]);
     }
-    #[Route('/delete/{id}',name:'del_seance')]
-    public function delSeance(Seance $seance,ManagerRegistry $doctrine): Response
+    #[Route('/delete/{id}', name: 'del_seance')]
+    public function delSeance(Seance $seance, ManagerRegistry $doctrine): Response
     {
-        $em=$doctrine->getManager();
+        $em = $doctrine->getManager();
         $em->remove($seance);
         $em->flush();
         return $this->redirectToRoute('app_seance');
     }
-    #[Route('/update/{id}',name:'update_seance')]
-    public function updateSeance(Request $request, ManagerRegistry $doctrine,$id): Response
+    #[Route('/update/{id}', name: 'update_seance')]
+    public function updateSeance(Request $request, ManagerRegistry $doctrine, $id): Response
     {
-        $seance=$doctrine->getManager()->getRepository(Seance::class)->find($id);
-        $form=$this->createForm(SeanceType::class,$seance);
+        $seance = $doctrine->getManager()->getRepository(Seance::class)->find($id);
+        $form = $this->createForm(SeanceType::class, $seance);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $seance->setEtat(NULL);
-            $em=$doctrine->getManager();
+            $em = $doctrine->getManager();
             $em->flush();
             return $this->redirectToRoute('app_seance');
         }
-        return $this->render('seance/update.html.twig',['formS' => $form->createView(),]);
+        return $this->render('seance/update.html.twig', ['formS' => $form->createView(),]);
     }
-    #[Route('/show/{id}',name:'detail_seance')]
-    public function detailSeance(Request $request,ManagerRegistry $doctrine,$id){
-        $seance=$doctrine->getManager()->getRepository(Seance::class)->find($id);
-        $ad=$seance->getAdresse_Client();
-        $client=$doctrine->getManager()->getRepository(User::class)->findUserByEmail($seance->getAdresse_Client());
-        return $this->render('seance/detail.html.twig',['seance'=>$seance,'client'=>$client]);
+    #[Route('/show/{id}', name: 'detail_seance')]
+    public function detailSeance(Request $request, ManagerRegistry $doctrine, $id)
+    {
+        $seance = $doctrine->getManager()->getRepository(Seance::class)->find($id);
+        $ad = $seance->getAdresse_Client();
+        $client = $doctrine->getManager()->getRepository(User::class)->findUserByEmail($seance->getAdresse_Client());
+        return $this->render('seance/detail.html.twig', ['seance' => $seance, 'client' => $client]);
     }
 }

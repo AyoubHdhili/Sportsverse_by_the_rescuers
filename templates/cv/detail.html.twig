@@ -36,7 +36,7 @@
 				</tr>
 				<tr>
 					<th scope="col">nom</th>
-					<td>{{ coach.num_tel}}</td>
+					<td>{{ coach.NumTel}}</td>
 				</tr>
 				<tr>
 					<th scope="col">img</th>
@@ -44,7 +44,7 @@
 				</tr>
 				<tr>
 					<th scope="col">Activites</th>
-					{% for act in cv.activites %}
+					{% for act in cv.activites |default('undefined')%}
 						<td>{{ act }}</td>
 					{% endfor %}
 				</tr>
@@ -56,22 +56,22 @@
 
 				<tr>
 					<th scope="col">Discription</th>
-					<td>{{ cv.description }}</td>
+					<td>{{ cv.description|default('undefined') }}</td>
 				</tr>
 
 				<tr>
 					<th scope="col">tarif</th>
-					<td>{{ cv.tarif }}</td>
+					<td>{{ cv.tarif|default('undefined') }}</td>
 				</tr>
 
 				<tr>
 					<th scope="col">Duree experience</th>
-					<td>{{ cv.duree_experience }}</td>
+					<td>{{ cv.duree_experience|default('undefined') }}</td>
 				</tr>
 
 				<tr>
 					<th scope="col">Niveau</th>
-					<td>{{ cv.level }}</td>
+					<td>{{ cv.level|default('undefined') }}</td>
 				</tr>
 
 				<tr>
@@ -79,6 +79,9 @@
 					<td>
 						<button class="btn">
 							<a href="{{ path ('app_list_coach')}}">Back to List</a>
+						</button>
+						<button class="btn">
+							<a href="{{ path ('cv_pdf', {'id': coach.id|default('undefined')})}}">Download cv as PDF</a>
 						</button>
 					</td>
 				</tr>

@@ -68,20 +68,23 @@ class CvType extends AbstractType
                 'multiple' => false,
                 'placeholder' => 'Ton niveau de experience',
             ])
-            ->add(
-                'user_id',
-                EntityType::class,
-                [
-                    'class' => User::class,
-                    'choice_label' => 'Prenom',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->orderBy('u.nom', 'ASC')
-                            ->where('u.roles LIKE :coach')
-                            ->setParameter('coach', 'ROLE_COACH');
-                    },
-                ]
-            );
+            // ->add(
+            //     'user_id',
+            //     EntityType::class,
+            //     [
+            //     'required' => false,
+
+            //         'class' => User::class,
+            //         'choice_label' => 'Prenom',
+            //         'query_builder' => function (EntityRepository $er) {
+            //             return $er->createQueryBuilder('u')
+            //                 ->orderBy('u.nom', 'ASC')
+            //                 ->where('u.roles LIKE :coach')
+            //                 ->setParameter('coach', 'ROLE_COACH');
+            //         },
+            //     ]
+            // )
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

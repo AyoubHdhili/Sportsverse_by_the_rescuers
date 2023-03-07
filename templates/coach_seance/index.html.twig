@@ -1,28 +1,26 @@
 {% extends 'front.html.twig' %}
 {% block nav %}
-								<li class="nav-item active">
-									<a class="nav-link" href="{{path('app_coach_seance')}}">Accueil</a>
-								</li>
-								<li class="nav-item submenu dropdown">
-									<a class="nav-link" href="{{path('coach_seance')}}">Vos Séances</a>								</li>
-							</ul>
-{% endblock %}
-{% block header %}
-        	<!-- Start Banner Area -->
-	<section class="banner-area organic-breadcrumb">
-		<div class="container">
-			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-				<div class="col-first">
-					<h1>Bienvenu à l'espace Coach</h1>
-					<nav class="d-flex align-items-center">
-						<a href="#">Consulter Vos Séances, Gérer Les demandes reçus</a>
-					</nav>
-				</div>
+	<li class="nav-item active">
+		<a class="nav-link" href="{{path('app_coach_seance')}}">Accueil</a>
+	</li>
+	<li class="nav-item submenu dropdown">
+		<a class="nav-link" href="{{path('coach_seance')}}">Vos Séances</a>
+	</li>
+</ul>{% endblock %}{% block header %}
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+			<div class="col-first">
+				<h1>Bienvenu à l'espace Coach</h1>
+				<nav class="d-flex align-items-center">
+					<a href="#">Consulter Vos Séances, Gérer Les demandes reçus</a>
+				</nav>
+				<button class="primary-btn">
+					<a href="{{ path ('add_cv')}}">Consulter Votre cv</a>
+				</button>
 			</div>
 		</div>
-	</section>
-	<!-- End Banner Area -->
-{% endblock %}
-{% block body %}
-
-{% endblock %}
+	</div>
+</section>
+<!-- End Banner Area -->{% endblock %}{% block body %}{% endblock %}

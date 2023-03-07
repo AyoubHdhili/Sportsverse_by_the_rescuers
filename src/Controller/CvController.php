@@ -7,7 +7,11 @@ use App\Entity\User;
 
 use App\Form\CvType;
 use App\Repository\CvRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,15 +59,18 @@ class CvController extends AbstractController
         ]);
     }
     #[Route('/show/{id}', name: 'show_cv')]
-    public function show(ManagerRegistry $doctrine, $id): Response
+    public function show(ManagerRegistry $doctrine, UserRepository $userRepository, $id): Response
     {
         // declaring the repository in a variable
         $repository = $doctrine->getRepository(Cv::class);
-        $cv = $repository->find($id);
+        $coach = $userRepository->find($id);
+
+        $cv = $repository->find($coach);
 
         return $this->render('cv/detail.html.twig', [
             'controller_name' => 'CvController',
             'cv' => $cv,
+            'coach' => $coach
         ]);
     }
     #[Route('/add', name: 'add_cv')]
@@ -140,15 +147,18 @@ class CvController extends AbstractController
         ]);
     }
     #[Route('/update/{id}', name: 'update_cv')]
-    public function update(ManagerRegistry $doctrine, Request $request, $id)
+    public function update(ManagerRegistry $doctrine, Request $request, UserRepository $userRepository,  $id)
     {
         $repository = $doctrine->getRepository(Cv::class);
         $cv = $repository->find($id);
+
+        $coach = $userRepository->find($id);
         $form = $this->createForm(CvType::class, $cv);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $cv->setUserId($coach);
             $em = $doctrine->getManager();
             $em->persist($cv);
             $em->flush();
@@ -170,5 +180,33 @@ class CvController extends AbstractController
         $em->remove($cv);
         $em->flush();
         return $this->redirectToRoute("list_cv");
+    }
+    #[Route('/pdf/{id}',  name: 'cv_pdf')]
+    public function pdfDownload(Cv $cv, ManagerRegistry $doctrine, UserRepository $userRepository, $id): Response
+    {
+        $repository = $doctrine->getRepository(Cv::class);
+        $cv = $repository->find($id);
+        $coach = $userRepository->find($id);
+
+        $dompdf = new Dompdf();
+        $pdfOptions = new Options();
+        $pdfOptions->set(array('isRemoteEnabled' => true));
+        $dompdf = new Dompdf($pdfOptions);
+        $html = $this->render('cv/cv_pdf.html.twig', [
+            'coach' => $coach,
+            'cv' => $cv,
+        ]);
+        // Generate the PDF
+        $dompdf->loadHtml($html->getContent());
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        // Output the PDF as a string
+        $pdfOutput = $dompdf->output();
+        // Send the PDF as a response with a "Content-Type" header of "application/pdf"
+        $dompdf->stream("{{coach.prenom}}+cv.pdf", [
+            "attachment" => true,
+        ]);
+        $this->redirectToRoute('show_cv');
+        return new Response();
     }
 }

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Facture</title>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+				color: #333333;
+			}
+			header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				background-color: #f2f2f2;
+				padding: 20px;
+			}
+
+			.info {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-end;
+				text-align: right;
+			}
+			h1 {
+				margin-top: 0;
+				margin-bottom: 20px;
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+			th,
+			td {
+				text-align: left;
+				padding: 8px;
+				border-bottom: 1px solid #dddddd;
+			}
+			th {
+				background-color: #f2f2f2;
+			}
+			.total {
+				display: flex;
+				justify-content: flex-end;
+				margin-top: 20px;
+			}
+			.total span {
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<img src="https://i.ibb.co/z6zyTw5/apple-touch-icon.png" alt="apple-touch-icon" border="0">
+			<div class="info">
+				<h2>Sportsvere</h2>
+				<p>10 rue utique, Elghazala,Ariana</p>
+				<p>Téléphone : 99944560
+				</p>
+				<p>Email : info@Sportsvere.com</p>
+			</div>
+			Paiement à la livraison
+		</header>
+		<main>
+
+			<br>
+			<br>
+			<br>
+			<img src="{{ cv.image }}" alt="">
+			<h5 class="card-title">About</h5>
+			<table>
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th>Prenom</th>
+						<th>Adresse</th>
+						<th>Email</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{coach.nom}}</td>
+						<td>{{coach.prenom}}</td>
+						<td>{{coach.adresse}}</td>
+						<td>{{coach.email}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<table>
+				<thead>
+					<tr>
+						<th>Certification</th>
+						<th>Description</th>
+						<th>Tarif</th>
+						<th>Duree experience</th>
+						<th>Niveau</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{cv.certification}}</td>
+						<td>{{cv.description}}</td>
+						<td>{{cv.tarif}}</td>
+						<td>{{cv.duree_experience}}</td>
+						<td>{{cv.level}}</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</main>
+	</body>
+</html>
