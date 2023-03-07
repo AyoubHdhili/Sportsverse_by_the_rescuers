@@ -13,7 +13,13 @@ class ListCoachController extends AbstractController
     #[Route('/list/coach', name: 'app_list_coach')]
     public function index(ManagerRegistry $doctrine): Response
     {
-        $coachs=$doctrine->getManager()->getRepository(User::class)->findCoachs();
+        $users=$doctrine->getManager()->getRepository(User::class)->findAll();
+        $coachs=[];
+        for ($i=0; $i < count($users) ; $i++) { 
+            if ($users[$i]->getRoles()[0]=='ROLE_COACH') {
+                $coachs[$i]=$users[$i];
+            }
+        }
         return $this->render('list_coach/index.html.twig', [
             'coachs' => $coachs,
         ]);

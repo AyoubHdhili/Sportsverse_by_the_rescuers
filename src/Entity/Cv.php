@@ -20,13 +20,18 @@ class Cv
     #[Assert\NotBlank(message: "Certification est obligatoire")]
     private ?string $certification = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 500)]
     #[Assert\NotBlank(message: "Description est obligatoire")]
 
     private ?string $description = null;
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Tarif est obligatoire")]
+    #[Assert\Range(
+        min: 5,
+        max: 100,
+        notInRangeMessage: 'Ton tarif doit etre entre {{ min }} DT et {{ max }} DT',
+    )]
     private ?float $tarif = null;
 
     #[ORM\Column(length: 255, nullable: true)]

@@ -121,7 +121,7 @@ class CvController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($cv);
             $em->flush();
-            return $this->redirectToRoute('list_cv');
+            return $this->redirectToRoute('admin_list_cv');
         }
         return $this->renderForm('cv/admin/add.html.twig', [
             'cv' => $cv,
