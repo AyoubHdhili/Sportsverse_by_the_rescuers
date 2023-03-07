@@ -22,6 +22,8 @@ use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 #[Route('/list/produit')]
 class ListProduitController extends AbstractController
 {
@@ -76,7 +78,13 @@ class ListProduitController extends AbstractController
         ]);
     }
    
-
+    private $security;
+    private $session;
+    public function __construct(Security $security, SessionInterface $session)
+    {
+        $this->security=$security;
+        $this->session=$session;
+    }
 
      #[Route("/{id}", name:"product_show")]  
     public function show(Produit $produit, Request $request,  ReviewRepository $reviewRepository, EntityManagerInterface $entityManager)
@@ -108,10 +116,8 @@ class ListProduitController extends AbstractController
                 $review->setProduit($produit);
                 /** @var User $user
                 */
-                $user = $this->getUser();
-                $user = $entityManager
-            ->getRepository(User::class)
-            ->find(1);
+                $user=$this->security->getUser();
+              
                 $review->setUser($user);
                 $review->setDateCreation(new DateTime('NOW'));
                 $reviewRepository->save($review, true);
