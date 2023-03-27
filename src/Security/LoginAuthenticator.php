@@ -64,7 +64,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
                 $this->urlGenerator->generate('app_logout');
                 $url = $this->urlGenerator->generate('app_coachBanned');
             } else {
-                $url = $this->urlGenerator->generate('app_home_coach', ['id' => $user->getUserIdentifier()]);
+                $url = $this->urlGenerator->generate('app_coach_seance', ['id' => $user->getUserIdentifier()]);
             }
         }
 

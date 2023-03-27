@@ -22,6 +22,9 @@
 								<li class="nav-item submenu dropdown">
 									<a href="{{path('coach_seance')}}" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vos Séances</a>
 								</li>
+                                <li class="nav-item">
+									<a class="nav-link" href="{{path('app_logout')}}">logout</a>
+								</li>
 							</ul>
 {% endblock %}
 {% block body %}
@@ -32,7 +35,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Nom Coach</th>
+                                <th scope="col">Nom Client</th>
                                 <th scope="col">Emplacement</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Durée</th>
@@ -42,7 +45,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {% for s in seances %}
+                        {% for s,c in seances|zip(clients) %}
                             
                             <tr>
                                 <td>
@@ -51,7 +54,7 @@
                                             
                                         </div>
                                         <div class="media-body">
-                                        <h5>{{s.coach_id}}</h5>
+                                        <h5>{{c.nom}}</h5>
                                         </div>
                                     </div>
                                 </td>
