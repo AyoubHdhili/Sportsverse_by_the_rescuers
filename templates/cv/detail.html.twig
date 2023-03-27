@@ -3,15 +3,45 @@
 {% block title %}
 	CV detail
 {% endblock %}
+{% block container %}
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>profile</h1>
+				</div>
+			</div>
+		</div>
+	</section>
 
-{% block banner_content %}
-	<div class="card" style="margin-top: 160px; justify-content: center; align-items: center;">
+{% endblock %}
+{% block body %}
+	<div class="card" style="justify-content: center; align-items: center;">
 		<div class="card-body">
 			<h5 class="card-title">CV list</h5>
 
 			<!-- Table with hoverable rows -->
 			<table class="table table-hover">
-
+				<tr>
+					<th scope="col">nom</th>
+					<td>{{ coach.nom }}</td>
+				</tr>
+				<tr>
+					<th scope="col">prenom</th>
+					<td>{{ coach.prenom }}</td>
+				</tr>
+				<tr>
+					<th scope="col">nom</th>
+					<td>{{ coach.adresse }}</td>
+				</tr>
+				<tr>
+					<th scope="col">nom</th>
+					<td>{{ coach.num_tel}}</td>
+				</tr>
+				<tr>
+					<th scope="col">img</th>
+					<td><img src="{{asset('uploads/cvs/{{ cv.image}}')}}" alt=""></td>
+				</tr>
 				<tr>
 					<th scope="col">Activites</th>
 					{% for act in cv.activites %}
@@ -48,7 +78,7 @@
 					<th scope="col">Action</th>
 					<td>
 						<button class="btn">
-							<a href="{{ path ('list_cv')}}">Back to List</a>
+							<a href="{{ path ('app_list_coach')}}">Back to List</a>
 						</button>
 					</td>
 				</tr>
@@ -56,4 +86,3 @@
 		</div>
 	</div>
 {% endblock %}
-{% block body %}{% endblock %}

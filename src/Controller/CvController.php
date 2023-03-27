@@ -12,12 +12,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/cv')]
 class CvController extends AbstractController
 {
+    private $security;
+    private $session;
+    public function __construct(Security $security, SessionInterface $session)
+    {
+        $this->security = $security;
+        $this->session = $session;
+    }
     #[Route('/', name: 'app_cv')]
     public function index(): Response
     {
@@ -60,7 +69,9 @@ class CvController extends AbstractController
     #[Route('/add', name: 'add_cv')]
     public function add(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): Response
     {
+        $user = $this->security->getUser();
         $cv = new Cv();
+
         $form = $this->createForm(CvType::class, $cv);
         $form->handleRequest($request);
 
@@ -82,7 +93,7 @@ class CvController extends AbstractController
                 }
                 $cv->setImage($newFilename);
             }
-
+            $cv->setUserId($user);
             $em = $doctrine->getManager();
             $em->persist($cv);
             $em->flush();
@@ -121,7 +132,7 @@ class CvController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($cv);
             $em->flush();
-            return $this->redirectToRoute('list_cv');
+            return $this->redirectToRoute('admin_list_cv');
         }
         return $this->renderForm('cv/admin/add.html.twig', [
             'cv' => $cv,

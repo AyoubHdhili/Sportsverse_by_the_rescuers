@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Activite;
 use App\Entity\Cv;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\AbstractType;
@@ -22,26 +23,37 @@ class CvType extends AbstractType
             ->add('certification')
             ->add('description')
             ->add('tarif')
-            ->add('image', FileType::class, [
-                'label' => 'Votre photo de profile (Des fichier images seulement)',
-                'required' => false,
-                'mapped' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => ['image/gif ', 'image/jpg', 'image/jpeg',],
-                        'mimeTypesMessage' => 'Please upload a valid Image document',
-                    ])
-                ],
-            ])
+            // ->add('image', FileType::class, [
+            //     'label' => 'Votre photo de profile (Des fichier images seulement)',
+            //     'required' => false,
+            //     'mapped' => false,
+            //     'constraints' => [
+            //         new File([
+            //             'maxSize' => '1024k',
+            //             'image/png',
+            //             'mimeTypes' => [
+            //                 'image/gif ', 'image/jpg',
+            //                 'image/jpeg', 'image/png',
+            //             ],
+            //             'mimeTypesMessage' => 'Please upload a valid Image document',
+            //         ])
+            //     ],
+            // ])
             ->add(
                 'activites',
                 EntityType::class,
                 [
                     'class' => Activite::class,
                     'choice_label' => 'nom',
-                    'expanded' => true,
+                    'expanded' => false,
                     'multiple' => true,
+                    'attr' => [
+                        'class' => 'select2'
+                    ],
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('a')
+                            ->orderBy('a.nom', 'ASC');
+                    },
                     'placeholder' => 'Choisir les activites',
                 ]
             )
@@ -62,6 +74,12 @@ class CvType extends AbstractType
                 [
                     'class' => User::class,
                     'choice_label' => 'Prenom',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->orderBy('u.nom', 'ASC')
+                            ->where('u.roles LIKE :coach')
+                            ->setParameter('coach', 'ROLE_COACH');
+                    },
                 ]
             );
     }

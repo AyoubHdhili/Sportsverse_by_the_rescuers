@@ -2,8 +2,19 @@
 
 {% block title %}Users
 {% endblock %}
+{% block container %}
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Activite</h1>
+				</div>
+			</div>
+		</div>
+	</section>
 
-{% block banner_content %}
+{% endblock %}
+{% block body %}
 	<div class="card">
 		<div class="card-body">
 			<h5 class="card-title">Activite</h5>
@@ -34,5 +45,6 @@
 		</table>
 		<!-- End Table with hoverable rows -->
 
+
 	</div>
-</div>{% endblock %}{% block body %}{% endblock %}
+{% endblock %}

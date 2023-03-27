@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Activite;
 use App\Entity\Cv;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,8 +26,17 @@ class ActiviteType extends AbstractType
                 EntityType::class,
                 [
                     'class' => Cv::class,
-                    'expanded' => true,
+                    'choice_label' => 'user_id',
+                    'expanded' => false,
                     'multiple' => true,
+                    'attr' => [
+                        'class' => 'select2'
+                    ],
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('c')
+                            ->orderBy('c.user_id', 'ASC');
+                    },
+
                     'placeholder' => 'Choisir les Coachs',
                 ]
             );
